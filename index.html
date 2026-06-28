@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirelos Namroud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D0F14;
+      --surface:   #151820;
+      --border:    #1E2330;
+      --muted:     #3A4055;
+      --text-dim:  #7B8299;
+      --text:      #C8CCDB;
+      --text-hi:   #E8EAF0;
+      --accent:    #4FC3F7;
+      --accent-dim:#1A3A4A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+    /* ── Layout ── */
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 1.5rem 2rem;
+      border-right: 1px solid var(--border);
+      gap: 0;
+    }
+
+    .sidebar-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-hi);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .sidebar-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+    }
+
+    nav { flex: 1; }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.45rem 0;
+      transition: color 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    nav a::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--muted);
+      transition: width 0.2s, background 0.15s;
+      flex-shrink: 0;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text-hi);
+    }
+
+    nav a:hover::before, nav a.active::before {
+      width: 28px;
+      background: var(--accent);
+    }
+
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      transition: color 0.15s;
+    }
+
+    .sidebar-links a:hover { color: var(--accent); }
+
+    .lang-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .lang-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-toggle button.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ── Main ── */
+    main {
+      padding: 4rem 3.5rem 6rem;
+      max-width: 760px;
+    }
+
+    /* ── Hero ── */
+    .hero { margin-bottom: 6rem; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 700;
+      color: var(--text-hi);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: var(--accent);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .hero-location {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ── Section ── */
+    section { margin-bottom: 5rem; scroll-margin-top: 2rem; }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Experience Timeline ── */
+    .timeline { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .tl-item { display: grid; grid-template-columns: 1fr; gap: 0.4rem; position: relative; padding-left: 1.5rem; }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .tl-item::after {
+      content: '';
+      position: absolute;
+      left: 2.5px;
+      top: 1rem;
+      width: 1px;
+      bottom: -2.5rem;
+      background: var(--border);
+    }
+
+    .timeline .tl-item:last-child::after { display: none; }
+
+    .tl-company {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-hi);
+    }
+
+    .tl-role {
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .tl-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-desc {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .tl-bullets {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .tl-bullets li {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      list-style: none;
+      position: relative;
+    }
+
+    .tl-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: -0.9rem;
+      color: var(--accent);
+    }
+
+    /* ── Education ── */
+    .edu-grid { display: flex; flex-direction: column; gap: 1.8rem; }
+
+    .edu-item {}
+
+    .edu-school {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      color: var(--text-hi);
+      font-size: 0.95rem;
+    }
+
+    .edu-degree {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin: 0.1rem 0;
+    }
+
+    .edu-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .skill-tag {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.45rem 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text);
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Homelab ── */
+    .homelab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.6rem 1.8rem;
+    }
+
+    .hl-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .hl-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-hi);
+    }
+
+    .hl-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      margin-top: 0.15rem;
+    }
+
+    .hl-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      padding: 0.2rem 0.55rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hl-desc {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1.4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .hl-stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .hl-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.25rem 0.6rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .hl-chip:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── Certifications ── */
+    .cert-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .cert-item:hover { border-color: var(--accent); }
+
+    .cert-icon {
+      font-size: 1.1rem;
+      margin-top: 0.05rem;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-hi);
+    }
+
+    .cert-issuer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+    }
+
+    .kestrel-hint {
+      margin-top: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--muted);
+      opacity: 0.55;
+      transition: opacity 0.4s, color 0.4s;
+      cursor: default;
+    }
+
+    .kestrel-hint:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        padding: 2rem 1.5rem 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .sidebar-name { margin-bottom: 0; }
+      .sidebar-role { margin-bottom: 0; }
+
+      nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem 1rem;
+      }
+
+      main { padding: 2.5rem 1.5rem 4rem; }
+
+      .hero { margin-bottom: 4rem; }
+
+      .skills-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-name">Kirelos Namroud</div>
+    <div class="sidebar-role" data-i18n="role"></div>
+
+    <nav id="sidebar-nav">
+      <a href="#about"    data-i18n="nav_about"></a>
+      <a href="#experience" data-i18n="nav_experience"></a>
+      <a href="#education" data-i18n="nav_education"></a>
+      <a href="#skills"   data-i18n="nav_skills"></a>
+      <a href="#homelab"  data-i18n="nav_homelab"></a>
+      <a href="#certs"    data-i18n="nav_certs"></a>
+      <a href="#contact"  data-i18n="nav_contact"></a>
+    </nav>
+
+    <div class="sidebar-links">
+      <a href="mailto:namroudkirelos04@proton.me">✉ namroudkirelos04@proton.me</a>
+      <a href="https://github.com/knamroud" target="_blank" rel="noopener">⌥ github.com/knamroud</a>
+      <a href="https://linkedin.com/in/knamroud" target="_blank" rel="noopener">⇗ linkedin/knamroud</a>
+      <a href="https://credly.com/users/kirelosnamroud" target="_blank" rel="noopener">◈ credly</a>
+    </div>
+
+    <div class="lang-toggle">
+      <button id="btn-it" class="active" onclick="setLang('it')">IT</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main>
+    <!-- Hero -->
+    <div class="hero" id="about">
+      <div class="hero-eyebrow" data-i18n="hero_eyebrow"></div>
+      <h1 class="hero-name">Kirelos<br>Namroud<span class="cursor"></span></h1>
+      <p class="hero-tagline" data-i18n="hero_tagline"></p>
+      <div class="hero-location">⌖ Greater Milan Metropolitan Area</div>
+    </div>
+
+    <!-- Experience -->
+    <section id="experience">
+      <div class="section-label" data-i18n="nav_experience"></div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-company">Calitera Srl</div>
+          <div class="tl-role" data-i18n="cal_role"></div>
+          <div class="tl-period" data-i18n="cal_period"></div>
+          <div class="tl-desc" data-i18n="cal_desc"></div>
+          <ul class="tl-bullets">
+            <li data-i18n="cal_b1"></li>
+            <li data-i18n="cal_b2"></li>
+            <li data-i18n="cal_b3"></li>
+            <li data-i18n="cal_b4"></li>
+            <li data-i18n="cal_b5"></li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-company">Social Thingum</div>
+          <div class="tl-role">Python Developer</div>
+          <div class="tl-period" data-i18n="st_period"></div>
+          <div class="tl-desc" data-i18n="st_desc"></div>
+          <ul class="tl-bullets">
+            <li data-i18n="st_b1"></li>
+            <li data-i18n="st_b2"></li>
+            <li data-i18n="st_b3"></li>
+          </ul>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-company">ECIT SpA</div>
+          <div class="tl-role">Web Developer</div>
+          <div class="tl-period" data-i18n="ecit_period"></div>
+          <div class="tl-desc" data-i18n="ecit_desc"></div>
+          <ul class="tl-bullets">
+            <li data-i18n="ecit_b1"></li>
+            <li data-i18n="ecit_b2"></li>
+            <li data-i18n="ecit_b3"></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+      <div class="section-label" data-i18n="nav_education"></div>
+      <div class="edu-grid">
+
+        <div class="edu-item">
+          <div class="edu-school">Università degli Studi di Milano</div>
+          <div class="edu-degree" data-i18n="unimi_degree"></div>
+          <div class="edu-period" data-i18n="unimi_period"></div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-school">IIS Giuseppe Luigi Lagrange</div>
+          <div class="edu-degree" data-i18n="lagrange_degree"></div>
+          <div class="edu-period">2018 – 2023</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-school">Coursera</div>
+          <div class="edu-degree" data-i18n="coursera_degree"></div>
+          <div class="edu-period" data-i18n="coursera_period"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="section-label" data-i18n="nav_skills"></div>
+      <div class="skills-grid" id="skills-grid"></div>
+    </section>
+
+    <!-- Homelab -->
+    <section id="homelab">
+      <div class="section-label" data-i18n="nav_homelab"></div>
+      <div class="homelab-card">
+        <div class="hl-header">
+          <div>
+            <div class="hl-title" data-i18n="hl_title"></div>
+            <div class="hl-subtitle" data-i18n="hl_subtitle"></div>
+          </div>
+          <div class="hl-badge">ZimaBoard 2</div>
+        </div>
+        <p class="hl-desc" data-i18n="hl_desc"></p>
+        <div class="hl-stack-grid" id="hl-stack"></div>
+      </div>
+    </section>
+
+
+    <section id="certs">
+      <div class="section-label" data-i18n="nav_certs"></div>
+      <div class="cert-list">
+        <a class="cert-item" href="https://www.coursera.org/account/accomplishments/specialization/certificate/7W8B2CSQN7N6" target="_blank" rel="noopener">
+          <span class="cert-icon">◈</span>
+          <div>
+            <div class="cert-name">Meta Backend Developer</div>
+            <div class="cert-issuer">Meta · Coursera</div>
+          </div>
+        </a>
+        <a class="cert-item" href="https://www.coursera.org/account/accomplishments/specialization/certificate/VS44FZRXPMTR" target="_blank" rel="noopener">
+          <span class="cert-icon">◈</span>
+          <div>
+            <div class="cert-name">IBM Full Stack Software Developer</div>
+            <div class="cert-issuer">IBM · Coursera</div>
+          </div>
+        </a>
+        <a class="cert-item" href="https://www.coursera.org/account/accomplishments/specialization/certificate/S7F8FKD4XP22" target="_blank" rel="noopener">
+          <span class="cert-icon">◈</span>
+          <div>
+            <div class="cert-name">Cloud-Native Development with OpenShift &amp; Kubernetes</div>
+            <div class="cert-issuer">Red Hat · Coursera</div>
+          </div>
+        </a>
+        <a class="cert-item" href="https://www.coursera.org/account/accomplishments/specialization/certificate/3SUSYGW5UNYA" target="_blank" rel="noopener">
+          <span class="cert-icon">◈</span>
+          <div>
+            <div class="cert-name">Google IT Automation with Python</div>
+            <div class="cert-issuer">Google · Coursera</div>
+          </div>
+        </a>
+        <a class="cert-item" href="https://cert.efset.org/kgUQEt" target="_blank" rel="noopener">
+          <span class="cert-icon">◈</span>
+          <div>
+            <div class="cert-name">EF SET Certificate — C1 Advanced</div>
+            <div class="cert-issuer">EF Education First</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-label" data-i18n="nav_contact"></div>
+      <div class="contact-grid">
+        <a class="contact-link" href="mailto:namroudkirelos04@proton.me">✉ Email</a>
+        <a class="contact-link" href="https://github.com/knamroud" target="_blank" rel="noopener">⌥ GitHub</a>
+        <a class="contact-link" href="https://linkedin.com/in/knamroud" target="_blank" rel="noopener">⇗ LinkedIn</a>
+        <a class="contact-link" href="https://credly.com/users/kirelosnamroud" target="_blank" rel="noopener">◈ Credly</a>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span data-i18n="footer"></span>
+    </div>
+    <div class="kestrel-hint" data-i18n="kestrel"></div>
+  </main>
+</div>
+
+<script>
+// ── i18n data ──
+const i18n = {
+  it: {
+    role:           'full stack dev · cs student',
+    nav_about:      'Profilo',
+    nav_experience: 'Esperienza',
+    nav_education:  'Formazione',
+    nav_skills:     'Competenze',
+    nav_certs:      'Certificazioni',
+    nav_contact:    'Contatti',
+    hero_eyebrow:   'DISPONIBILE PER OPPORTUNITÀ',
+    hero_tagline:   'Sviluppatore Full Stack con esperienza backend in Python e Django, appassionato di infrastrutture self-hosted e automazione DevOps. Studente di Informatica a UniMI.',
+    cal_role:       'Back End Developer',
+    cal_period:     'ago 2023 – presente · Gallarate',
+    cal_desc:       'Sviluppo e manutenzione di un CRM aziendale full-stack.',
+    cal_b1:         'Sviluppo del CRM con Python e Django',
+    cal_b2:         'Testing del progetto',
+    cal_b3:         'Database PostgreSQL con ORM Django',
+    cal_b4:         'Automazione di procedure di mantenimento del progetto',
+    cal_b5:         'Aggiornamento e manutenzione dei server AWS (EC2)',
+    st_period:      'gen 2023 · Milano',
+    st_desc:        'Progettazione e implementazione di un web scraper funzionante.',
+    st_b1:          'Analisi della pagina target',
+    st_b2:          'Implementazione con Python e BeautifulSoup4',
+    st_b3:          'Ottimizzazione dello script',
+    ecit_period:    'apr 2022 · Cernusco sul Naviglio',
+    ecit_desc:      'Sviluppo dell\'app web "MediaDB" per la gestione e recensione di serie TV e film.',
+    ecit_b1:        'Progettazione architettura e struttura dati',
+    ecit_b2:        'Implementazione database tramite ORM',
+    ecit_b3:        'Backend con Laravel e PHP',
+    unimi_degree:   'Laurea Triennale in Informatica',
+    unimi_period:   'set. 2025 – prevista set. 2028',
+    lagrange_degree:'Diploma Tecnico, Informatica e Telecomunicazioni',
+    coursera_degree:'Certificazioni e Specializzazioni in Informatica',
+    coursera_period:'dic 2022',
+    footer:         'fatto con ♥ e troppo caffè · knamroud',
+    nav_homelab:    'Homelab',
+    hl_title:       'Home Cloud Infrastructure',
+    hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
+    hl_desc:        'Self-hosted su ZimaBoard 2: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
+    kestrel:        '// project kestrel — qualcosa resta sospeso, immobile, a osservare i mercati. presto. ↗',
+  },
+  en: {
+    role:           'full stack dev · cs student',
+    nav_about:      'About',
+    nav_experience: 'Experience',
+    nav_education:  'Education',
+    nav_skills:     'Skills',
+    nav_certs:      'Certifications',
+    nav_contact:    'Contact',
+    hero_eyebrow:   'OPEN TO OPPORTUNITIES',
+    hero_tagline:   'Full Stack Developer with backend experience in Python and Django, passionate about self-hosted infrastructure and DevOps automation. Computer Science student at UniMI.',
+    cal_role:       'Back End Developer',
+    cal_period:     'Aug 2023 – present · Gallarate',
+    cal_desc:       'Development and maintenance of a full-stack in-house CRM.',
+    cal_b1:         'CRM development with Python and Django',
+    cal_b2:         'Project testing',
+    cal_b3:         'PostgreSQL database with Django ORM',
+    cal_b4:         'Automation of project maintenance procedures',
+    cal_b5:         'AWS (EC2) server updates and maintenance',
+    st_period:      'Jan 2023 · Milan',
+    st_desc:        'Design and implementation of a fully working web scraper.',
+    st_b1:          'Analysis of the target web page',
+    st_b2:          'Implementation with Python and BeautifulSoup4',
+    st_b3:          'Script optimisation',
+    ecit_period:    'Apr 2022 · Cernusco sul Naviglio',
+    ecit_desc:      'Development of the "MediaDB" web app — browse, save, and review TV series and films.',
+    ecit_b1:        'Architecture and data structure design',
+    ecit_b2:        'Database implementation via ORM',
+    ecit_b3:        'Backend with Laravel and PHP',
+    unimi_degree:   'B.Sc. in Computer Science',
+    unimi_period:   'Sep 2025 – expected Sep 2028',
+    lagrange_degree:'Technical Diploma, IT & Telecommunications',
+    coursera_degree:'CS Certifications and Specialisations',
+    coursera_period:'Dec 2022',
+    footer:         'built with ♥ and too much coffee · knamroud',
+    nav_homelab:    'Homelab',
+    hl_title:       'Home Cloud Infrastructure',
+    hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
+    hl_desc:        'Self-hosted on a ZimaBoard 2: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
+    kestrel:        '// project kestrel — something hovers, still and patient, watching the markets. soon. ↗',
+  }
+};
+
+const skills = [
+  'Python', 'Django', 'PostgreSQL', 'AWS EC2',
+  'PHP', 'Laravel', 'BeautifulSoup4',
+  'Docker', 'Podman', 'Ansible',
+  'Linux', 'openSUSE', 'Restic',
+  'Git', 'REST APIs', 'HTML/CSS',
+  'JavaScript', 'Bash', 'SQL',
+];
+
+const hlStack = [
+  'ZimaBoard 2', 'openSUSE MicroOS', 'Podman (rootless)',
+  'Ansible', 'RAID 1', 'Restic', 'Backrest',
+  'NUT', 'Uptime Kuma', 'Gotify', 'systemd Quadlet',
+];
+
+// ── Render skills ──
+const grid = document.getElementById('skills-grid');
+skills.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'skill-tag';
+  el.textContent = s;
+  grid.appendChild(el);
+});
+
+// ── Render homelab stack ──
+const hlGrid = document.getElementById('hl-stack');
+hlStack.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'hl-chip';
+  el.textContent = s;
+  hlGrid.appendChild(el);
+});
+
+// ── Lang switch ──
+let currentLang = 'it';
+
+function setLang(lang) {
+  currentLang = lang;
+  const dict = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+}
+
+// Init
+setLang('it');
+
+// ── Active nav link on scroll ──
+const sections = document.querySelectorAll('section[id], .hero[id]');
+const navLinks = document.querySelectorAll('nav a');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ── Easter egg ──
+// nothing to see here. unless you went looking.
+console.log(
+  '%c↗ project kestrel',
+  'color:#4FC3F7; font-family:monospace; font-size:14px; font-weight:bold; background:#1A3A4A; padding:6px 10px; border-radius:3px;'
+);
+console.log(
+  '%cA kestrel hovers — wings beating, body perfectly still — watching the market floor far below.\nIt sees the movement before the movement happens.\nYou weren\'t supposed to find this yet. But since you did: stay tuned. ↗',
+  'color:#7B8299; font-family:monospace; font-size:12px; line-height:1.6;'
+);
+</script>
+</body>
+</html>
