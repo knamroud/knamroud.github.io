@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kirelos Namroud</title>
+  <title>Kirelos (Kiro) Namroud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -267,10 +267,36 @@
     .timeline .tl-item:last-child::after { display: none; }
 
     .tl-company {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
       font-weight: 600;
       color: var(--text-hi);
+    }
+
+    .tl-company a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .tl-company a:hover {
+      color: var(--accent);
+    }
+
+    .tl-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
     }
 
     .tl-role {
@@ -503,21 +529,6 @@
       color: var(--text-dim);
     }
 
-    .kestrel-hint {
-      margin-top: 0.6rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.66rem;
-      color: var(--muted);
-      opacity: 0.55;
-      transition: opacity 0.4s, color 0.4s;
-      cursor: default;
-    }
-
-    .kestrel-hint:hover {
-      opacity: 1;
-      color: var(--accent);
-    }
-
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .layout {
@@ -603,6 +614,22 @@
     <section id="experience">
       <div class="section-label" data-i18n="nav_experience"></div>
       <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-company">
+            <a href="https://kestrel-markets.com" target="_blank" rel="noopener">Kestrel Markets</a>
+            <span class="tl-badge" data-i18n="kestrel_badge"></span>
+          </div>
+          <div class="tl-role" data-i18n="kestrel_role"></div>
+          <div class="tl-period" data-i18n="kestrel_period"></div>
+          <div class="tl-desc" data-i18n="kestrel_desc"></div>
+          <ul class="tl-bullets">
+            <li data-i18n="kestrel_b1"></li>
+            <li data-i18n="kestrel_b2"></li>
+            <li data-i18n="kestrel_b3"></li>
+            <li data-i18n="kestrel_b4"></li>
+          </ul>
+        </div>
 
         <div class="tl-item">
           <div class="tl-company">Calitera Srl</div>
@@ -749,7 +776,6 @@
     <div class="footer">
       <span data-i18n="footer"></span>
     </div>
-    <div class="kestrel-hint" data-i18n="kestrel"></div>
   </main>
 </div>
 
@@ -766,6 +792,14 @@ const i18n = {
     nav_contact:    'Contatti',
     hero_eyebrow:   'DISPONIBILE PER OPPORTUNITÀ',
     hero_tagline:   'Sviluppatore Full Stack con esperienza backend in Python e Django, appassionato di infrastrutture self-hosted e automazione DevOps. Studente di Informatica in UniMI.',
+    kestrel_badge:  'IN ARRIVO',
+    kestrel_role:   'Founder & Full-Stack Developer',
+    kestrel_period: 'mag 2026 – presente · Remoto',
+    kestrel_desc:   'SaaS in abbonamento per la consapevolezza di mercato: watchlist di titoli USA con digest di notizie generato dall\'AI e chat per approfondire i titoli seguiti — strumento informativo, non di trading né di consulenza.',
+    kestrel_b1:     'Sviluppo full-stack: backend Django REST Framework, frontend Vue.js',
+    kestrel_b2:     'Digest di notizie per titolo generato con Claude, consegnato via email/Telegram agli orari scelti dall\'utente',
+    kestrel_b3:     'Chat AI (Claude) ancorata a digest, headline e prezzi EOD per interrogare i titoli in watchlist',
+    kestrel_b4:     'Piani in abbonamento (Free/Starter/Pro) con billing Stripe, trial e autenticazione a due fattori obbligatoria',
     cal_role:       'Back End Developer',
     cal_period:     'ago 2023 – presente · Gallarate',
     cal_desc:       'Sviluppo e manutenzione di un CRM aziendale full-stack.',
@@ -794,7 +828,6 @@ const i18n = {
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
     hl_desc:        'Self-hosted su ZimaBoard 2: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
-    kestrel:        '// project kestrel — qualcosa resta sospeso, immobile, a osservare i mercati. presto. ↗',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -806,6 +839,14 @@ const i18n = {
     nav_contact:    'Contact',
     hero_eyebrow:   'OPEN TO OPPORTUNITIES',
     hero_tagline:   'Full Stack Developer with backend experience in Python and Django, passionate about self-hosted infrastructure and DevOps automation. Computer Science student at UniMI.',
+    kestrel_badge:  'COMING SOON',
+    kestrel_role:   'Founder & Full-Stack Developer',
+    kestrel_period: 'May 2026 – present · Remote',
+    kestrel_desc:   'Subscription SaaS for market awareness: a watchlist of US stocks with AI-generated news digests and a chat to dig deeper into the stocks you follow — informational only, not trading or investment advice.',
+    kestrel_b1:     'Full-stack development: Django REST Framework backend, Vue.js frontend',
+    kestrel_b2:     'Per-stock AI news digest generated with Claude, delivered via email/Telegram at times the user chooses',
+    kestrel_b3:     'AI chat (Claude) grounded in digests, headlines, and EOD prices to query watchlisted stocks',
+    kestrel_b4:     'Subscription plans (Free/Starter/Pro) with Stripe billing, trial, and mandatory two-factor authentication',
     cal_role:       'Back End Developer',
     cal_period:     'Aug 2023 – present · Gallarate',
     cal_desc:       'Development and maintenance of a full-stack in-house CRM.',
@@ -834,12 +875,12 @@ const i18n = {
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
     hl_desc:        'Self-hosted on a ZimaBoard 2: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
-    kestrel:        '// project kestrel — something hovers, still and patient, watching the markets. soon. ↗',
   }
 };
 
 const skills = [
-  'Python', 'Django', 'PostgreSQL', 'AWS EC2',
+  'Python', 'Django', 'Django REST Framework', 'Vue.js',
+  'PostgreSQL', 'AWS EC2', 'Claude API', 'Stripe',
   'PHP', 'Laravel', 'BeautifulSoup4',
   'Docker', 'Podman', 'Ansible',
   'Linux', 'openSUSE', 'Restic',
@@ -904,17 +945,6 @@ const observer = new IntersectionObserver(entries => {
 }, { rootMargin: '-30% 0px -60% 0px' });
 
 sections.forEach(s => observer.observe(s));
-
-// ── Easter egg ──
-// nothing to see here. unless you went looking.
-console.log(
-  '%c↗ project kestrel',
-  'color:#4FC3F7; font-family:monospace; font-size:14px; font-weight:bold; background:#1A3A4A; padding:6px 10px; border-radius:3px;'
-);
-console.log(
-  '%cA kestrel hovers — wings beating, body perfectly still — watching the market floor far below.\nIt sees the movement before the movement happens.\nYou weren\'t supposed to find this yet. But since you did: stay tuned. ↗',
-  'color:#7B8299; font-family:monospace; font-size:12px; line-height:1.6;'
-);
 </script>
 </body>
 </html>
