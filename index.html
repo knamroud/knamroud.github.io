@@ -575,6 +575,107 @@
     @media (prefers-reduced-motion: reduce) {
       .cursor { animation: none; opacity: 1; }
     }
+
+    /* ── Print / CV résumé ── */
+    @media print {
+      @page { size: A4; margin: 1.4cm 1.5cm; }
+
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      html, body {
+        background: #fff !important;
+        color: #1a1a1a !important;
+        font-size: 10.5pt;
+        line-height: 1.4;
+      }
+
+      /* Hide interactive / decorative chrome */
+      .sidebar,
+      .lang-toggle,
+      .cv-download,
+      .cv-cta,
+      .cursor,
+      .hero-eyebrow,
+      .footer,
+      #contact { display: none !important; }
+
+      .layout { display: block; max-width: none; margin: 0; }
+      main { padding: 0; max-width: none; }
+
+      /* Reveal print-only header */
+      .cv-print-header { display: block; margin: 0.2rem 0 0.6rem; }
+      .cv-print-role {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9pt; color: #444; letter-spacing: 0.02em;
+        margin-bottom: 0.15rem;
+      }
+      .cv-print-contact { font-size: 8.5pt; color: #333; }
+
+      /* Hero → résumé header */
+      .hero { margin-bottom: 1rem; }
+      .hero-name { color: #111 !important; font-size: 22pt; line-height: 1.05; margin-bottom: 0.3rem; }
+      .hero-name br { display: none; }
+      .hero-tagline { color: #333 !important; font-size: 10pt; max-width: none; margin-bottom: 0.3rem; }
+      .hero-location { color: #555 !important; font-size: 8.5pt; }
+
+      /* Sections */
+      section { margin-bottom: 0.9rem; }
+      .section-label {
+        color: #111 !important; font-size: 9pt; letter-spacing: 0.1em;
+        margin-bottom: 0.5rem; break-after: avoid;
+      }
+      .section-label::after { background: #ccc !important; }
+
+      /* Experience timeline — strip dots/rails, tighten */
+      .timeline { gap: 0.7rem; }
+      .tl-item { padding-left: 0; break-inside: avoid; }
+      .tl-item::before, .tl-item::after { display: none !important; }
+      .tl-company { color: #111 !important; font-size: 11pt; }
+      .tl-company a { color: #111 !important; }
+      .tl-badge { color: #444 !important; background: none !important; border-color: #999 !important; font-size: 7pt; }
+      .tl-role { color: #333 !important; font-size: 9.5pt; }
+      .tl-period { color: #666 !important; font-size: 8pt; }
+      .tl-desc { color: #222 !important; font-size: 9.5pt; }
+      .tl-bullets li { color: #333 !important; font-size: 9pt; }
+      .tl-bullets li::before { color: #666 !important; }
+
+      /* Education */
+      .edu-grid { gap: 0.5rem; }
+      .edu-item { break-inside: avoid; }
+      .edu-school { color: #111 !important; }
+      .edu-degree { color: #333 !important; }
+      .edu-period { color: #666 !important; }
+
+      /* Skills → inline wrapped list */
+      .skills-grid { display: block; }
+      .skill-tag {
+        display: inline; background: none !important; border: none !important;
+        padding: 0; color: #222 !important; font-size: 9pt;
+      }
+      .skill-tag:not(:last-child)::after { content: ' · '; color: #999; }
+
+      /* Homelab — compact */
+      .homelab-card { background: none !important; border: none !important; padding: 0; break-inside: avoid; }
+      .hl-header { margin-bottom: 0.3rem; }
+      .hl-title { color: #111 !important; }
+      .hl-subtitle { color: #555 !important; }
+      .hl-badge { color: #444 !important; background: none !important; border-color: #999 !important; }
+      .hl-desc { color: #222 !important; font-size: 9pt; border-top-color: #ccc !important; padding-top: 0.4rem; margin-bottom: 0.4rem; }
+      .hl-chip { background: none !important; border: none !important; padding: 0; color: #333 !important; font-size: 8.5pt; }
+      .hl-chip:not(:last-child)::after { content: ' · '; color: #999; }
+
+      /* Certifications — compact */
+      .cert-list { gap: 0.3rem; }
+      .cert-item { background: none !important; border: none !important; padding: 0.1rem 0; break-inside: avoid; }
+      .cert-icon { display: none; }
+      .cert-name { color: #111 !important; font-size: 9.5pt; }
+      .cert-issuer { color: #555 !important; font-size: 8pt; }
+
+      a { text-decoration: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -614,6 +715,10 @@
     <div class="hero" id="about">
       <div class="hero-eyebrow" data-i18n="hero_eyebrow"></div>
       <h1 class="hero-name">Kirelos (Kiro)<br>Namroud<span class="cursor"></span></h1>
+      <div class="cv-print-header">
+        <div class="cv-print-role" data-i18n="role"></div>
+        <div class="cv-print-contact">namroudkirelos04@proton.me · github.com/knamroud · linkedin.com/in/knamroud · credly.com/users/kirelos-namroud</div>
+      </div>
       <p class="hero-tagline" data-i18n="hero_tagline"></p>
       <div class="hero-location">⌖ Greater Milan Metropolitan Area</div>
     </div>
