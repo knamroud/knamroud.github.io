@@ -528,6 +528,7 @@
 
     /* print-only header (revealed in @media print) */
     .cv-print-header { display: none; }
+    .cv-consent { display: none; }
 
     /* ── Footer ── */
     .footer {
@@ -673,6 +674,16 @@
       .cert-icon { display: none; }
       .cert-name { color: #111 !important; font-size: 9.5pt; }
       .cert-issuer { color: #555 !important; font-size: 8pt; }
+
+      .cv-consent {
+        display: block;
+        margin-top: 1rem;
+        padding-top: 0.4rem;
+        border-top: 1px solid #ccc;
+        font-size: 7.5pt;
+        color: #666;
+        font-style: italic;
+      }
 
       a { text-decoration: none !important; }
     }
@@ -885,6 +896,7 @@
     <div class="footer">
       <span data-i18n="footer"></span>
     </div>
+    <p class="cv-consent" data-i18n="cv_consent"></p>
   </main>
 </div>
 
@@ -935,6 +947,7 @@ const i18n = {
     coursera_degree:'Certificazioni e Specializzazioni in Informatica',
     coursera_period:'dic 2022',
     footer:         'fatto con ♥ e troppo caffè · knamroud',
+    cv_consent:     'Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae ai sensi dell\'art. 13 del D.Lgs. 196/2003 e dell\'art. 13 del Regolamento UE 2016/679 (GDPR).',
     nav_homelab:    'Homelab',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
@@ -984,6 +997,7 @@ const i18n = {
     coursera_degree:'CS Certifications and Specialisations',
     coursera_period:'Dec 2022',
     footer:         'built with ♥ and too much coffee · knamroud',
+    cv_consent:     'I authorise the processing of my personal data contained in this CV pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU Regulation 2016/679 (GDPR).',
     nav_homelab:    'Homelab',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
