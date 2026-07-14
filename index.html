@@ -495,31 +495,39 @@
       color: var(--text-dim);
     }
 
-    /* ── Contact ── */
-    .contact-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem;
+    /* ── CV download ── */
+    .cv-cta {
+      color: var(--text);
+      font-size: 0.9rem;
+      max-width: 480px;
+      margin-bottom: 1.2rem;
     }
 
-    .contact-link {
-      display: flex;
+    .cv-download {
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.55rem 1rem;
-      border: 1px solid var(--border);
+      padding: 0.6rem 1.4rem;
+      border: 1px solid var(--accent);
       border-radius: 4px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: 0.82rem;
+      background: var(--accent-dim);
+      color: var(--accent);
       font-family: 'JetBrains Mono', monospace;
-      transition: border-color 0.15s, color 0.15s;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .contact-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .cv-download::before { content: '↓'; }
+
+    .cv-download:hover {
+      background: var(--accent);
+      color: var(--bg);
     }
+
+    /* print-only header (revealed in @media print) */
+    .cv-print-header { display: none; }
 
     /* ── Footer ── */
     .footer {
@@ -762,15 +770,11 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- CV download -->
     <section id="contact">
       <div class="section-label" data-i18n="nav_contact"></div>
-      <div class="contact-grid">
-        <a class="contact-link" href="mailto:namroudkirelos04@proton.me">✉ Email</a>
-        <a class="contact-link" href="https://github.com/knamroud" target="_blank" rel="noopener">⌥ GitHub</a>
-        <a class="contact-link" href="https://linkedin.com/in/knamroud" target="_blank" rel="noopener">⇗ LinkedIn</a>
-        <a class="contact-link" href="https://credly.com/users/kirelosnamroud" target="_blank" rel="noopener">◈ Credly</a>
-      </div>
+      <p class="cv-cta" data-i18n="cv_cta"></p>
+      <button type="button" class="cv-download" onclick="window.print()" data-i18n="cv_download"></button>
     </section>
 
     <div class="footer">
@@ -789,7 +793,9 @@ const i18n = {
     nav_education:  'Formazione',
     nav_skills:     'Competenze',
     nav_certs:      'Certificazioni',
-    nav_contact:    'Contatti',
+    nav_contact:    'CV',
+    cv_download:    'Scarica CV',
+    cv_cta:         'Scarica una copia del mio CV in PDF, generato dal vivo da questo sito.',
     hero_eyebrow:   'DISPONIBILE PER OPPORTUNITÀ',
     hero_tagline:   'Sviluppatore Full Stack con esperienza backend in Python e Django, appassionato di infrastrutture self-hosted e automazione DevOps. Studente di Informatica in UniMI.',
     kestrel_badge:  'IN ARRIVO',
@@ -836,7 +842,9 @@ const i18n = {
     nav_education:  'Education',
     nav_skills:     'Skills',
     nav_certs:      'Certifications',
-    nav_contact:    'Contact',
+    nav_contact:    'CV',
+    cv_download:    'Download CV',
+    cv_cta:         'Download a PDF copy of my CV, generated live from this site.',
     hero_eyebrow:   'OPEN TO OPPORTUNITIES',
     hero_tagline:   'Full Stack Developer with backend experience in Python and Django, passionate about self-hosted infrastructure and DevOps automation. Computer Science student at UniMI.',
     kestrel_badge:  'COMING SOON',
