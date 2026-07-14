@@ -516,3 +516,17 @@ Confirm, in the browser's Print preview (Ctrl/Cmd+P → "Save as PDF"):
 **2. Placeholder scan:** No TBD/TODO; every code and command step is complete. ✓
 
 **3. Type/selector consistency:** `.cv-download`, `.cv-cta`, `.cv-print-header`, `.cv-print-role`, `.cv-print-contact`, `#contact`, i18n keys `cv_download`/`cv_cta`/`nav_contact` are used identically across Tasks 1–3 and the checks. ✓
+
+---
+
+## Amendment to Task 2 (2026-07-14, mid-implementation)
+
+Owner added two requirements, folded into Task 2 before its review:
+
+- **A4** — already satisfied by the `@page { size: A4; margin: 1.4cm 1.5cm; }` rule.
+- **GDPR consent line** — a print-only `<p class="cv-consent" data-i18n="cv_consent"></p>`
+  appended as the last child of `<main>`, screen-hidden and revealed in
+  `@media print` (small, muted, italic, top border) at the bottom of the CV.
+  New i18n key `cv_consent` in both `it` and `en` (classic D.Lgs. 196/2003 +
+  GDPR 2016/679 authorization). `check2.py` extended to assert `cv_consent` in
+  both locales and a `.cv-consent` print display rule.

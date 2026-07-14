@@ -137,3 +137,21 @@ of truth.
 - Homelab block **kept** in the PDF (compact). — default
 - Download button lives **only** in the CV section (a sidebar copy is optional
   and not included by default). — default
+
+## Amendment (2026-07-14, mid-implementation)
+
+Two requirements added by the owner while Task 2 was in flight:
+
+1. **A4 paper** — the printed CV must be A4 (`@page { size: A4; … }`). Already
+   part of the print stylesheet.
+2. **GDPR data-processing consent** — the classic Italian CV authorization line
+   is added at the very bottom of the *printed* CV (print-only, bilingual), so
+   recruiters may lawfully process the data for applications:
+   - IT: "Autorizzo il trattamento dei miei dati personali presenti nel
+     curriculum vitae ai sensi dell'art. 13 del D.Lgs. 196/2003 e dell'art. 13
+     del Regolamento UE 2016/679 (GDPR)."
+   - EN: "I authorise the processing of my personal data contained in this CV
+     pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU
+     Regulation 2016/679 (GDPR)."
+   - Implemented as a print-only `.cv-consent` element (i18n key `cv_consent`),
+     shown small/muted/italic with a top border at the bottom of the résumé.
