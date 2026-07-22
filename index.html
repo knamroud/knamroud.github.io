@@ -538,6 +538,18 @@
     .cv-print-header { display: none; }
     .cv-consent { display: none; }
 
+    /* print-frame: inert on screen, becomes a repeating page frame in print */
+    .print-frame,
+    .print-frame > tbody,
+    .print-frame > tbody > tr,
+    .print-frame > tbody > tr > td {
+      display: block;
+      width: auto;
+    }
+
+    .print-frame > thead,
+    .print-frame > tfoot { display: none; }
+
     /* ── Footer ── */
     .footer {
       margin-top: 4rem;
@@ -587,7 +599,27 @@
 
     /* ── Print / CV résumé (A4) ── */
     @media print {
-      @page { size: A4; margin: 13mm 15mm; }
+      /* margin:0 stops the browser drawing its own header/footer (date, title,
+         URL). The .print-frame thead/tfoot below give back real per-page
+         margins, which padding alone cannot do beyond the first page. */
+      @page { size: A4; margin: 0; }
+
+      .print-frame {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .print-frame > thead { display: table-header-group; }
+      .print-frame > tfoot { display: table-footer-group; }
+      .print-frame > tbody { display: table-row-group; }
+      .print-frame tr { display: table-row; }
+      .print-frame td {
+        display: table-cell;
+        vertical-align: top;
+        padding: 0 15mm;
+      }
+      /* reserved top/bottom margin, repeated on every page */
+      .pf-space { height: 13mm; }
 
       html {
         -webkit-print-color-adjust: exact;
@@ -893,6 +925,13 @@
 
   <!-- ── Main ── -->
   <main>
+    <!-- print-frame: thead/tfoot repeat on every printed page, reserving the
+         vertical margins that @page{margin:0} gives up to kill the browser
+         header/footer. Neutralised to plain blocks on screen. -->
+    <table class="print-frame">
+    <thead><tr><td><div class="pf-space"></div></td></tr></thead>
+    <tbody><tr><td>
+
     <!-- Hero -->
     <div class="hero" id="about">
       <div class="hero-eyebrow" data-i18n="hero_eyebrow"></div>
@@ -1084,6 +1123,10 @@
       <span data-i18n="footer"></span>
     </div>
     <p class="cv-consent" data-i18n="cv_consent"></p>
+
+    </td></tr></tbody>
+    <tfoot><tr><td><div class="pf-space"></div></td></tr></tfoot>
+    </table>
   </main>
 </div>
 
