@@ -495,6 +495,14 @@
       color: var(--text-dim);
     }
 
+    .hl-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .hl-title a:hover { color: var(--accent); }
+
     /* ── CV download ── */
     .cv-cta {
       color: var(--text);
@@ -577,9 +585,9 @@
       .cursor { animation: none; opacity: 1; }
     }
 
-    /* ── Print / CV résumé ── */
+    /* ── Print / CV résumé (A4) ── */
     @media print {
-      @page { size: A4; margin: 1.4cm 1.5cm; }
+      @page { size: A4; margin: 13mm 15mm; }
 
       html {
         -webkit-print-color-adjust: exact;
@@ -588,104 +596,266 @@
 
       html, body {
         background: #fff !important;
-        color: #1a1a1a !important;
-        font-size: 10.5pt;
-        line-height: 1.4;
+        color: #1b1f27 !important;
+        font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.42;
       }
 
-      /* Hide interactive / decorative chrome */
+      p, li { orphans: 2; widows: 2; }
+
+      /* Screen-only chrome */
       .sidebar,
       .lang-toggle,
-      .cv-download,
-      .cv-cta,
       .cursor,
       .hero-eyebrow,
+      .hero-location,
       .footer,
       #contact { display: none !important; }
 
       .layout { display: block; max-width: none; margin: 0; }
       main { padding: 0; max-width: none; }
+      a { color: inherit !important; text-decoration: none !important; }
 
-      /* Reveal print-only header */
-      .cv-print-header { display: block; margin: 0.2rem 0 0.6rem; }
+      /* ── Header ── */
+      .hero {
+        margin: 0 0 4mm;
+        padding-bottom: 2.4mm;
+        border-bottom: 1.2pt solid #15607a;
+      }
+      .hero-name {
+        font-size: 21pt;
+        font-weight: 700;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: #10141b !important;
+        margin: 0 0 1.2mm;
+      }
+      .hero-name br { display: none; }
+
+      .cv-print-header { display: block; }
       .cv-print-role {
         font-family: 'JetBrains Mono', monospace;
-        font-size: 9pt; color: #444; letter-spacing: 0.02em;
-        margin-bottom: 0.15rem;
+        font-size: 8.2pt;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #15607a;
+        margin-bottom: 1.4mm;
       }
-      .cv-print-contact { font-size: 8.5pt; color: #333; }
+      .cv-print-contact {
+        font-size: 8pt;
+        color: #4a515c;
+        line-height: 1.45;
+      }
+      .hero-tagline {
+        font-size: 9.2pt;
+        color: #2f353f !important;
+        max-width: 165mm;
+        margin: 2.4mm 0 0;
+      }
 
-      /* Hero → résumé header */
-      .hero { margin-bottom: 1rem; }
-      .hero-name { color: #111 !important; font-size: 22pt; line-height: 1.05; margin-bottom: 0.3rem; }
-      .hero-name br { display: none; }
-      .hero-tagline { color: #333 !important; font-size: 10pt; max-width: none; margin-bottom: 0.3rem; }
-      .hero-location { color: #555 !important; font-size: 8.5pt; }
-
-      /* Sections */
-      section { margin-bottom: 0.9rem; }
+      /* ── Sections ── */
+      section { margin: 0 0 1mm; }
       .section-label {
-        color: #111 !important; font-size: 9pt; letter-spacing: 0.1em;
-        margin-bottom: 0.5rem; break-after: avoid;
+        display: block;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8pt;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #15607a !important;
+        border-bottom: 0.6pt solid #ccd3dd;
+        padding-bottom: 1.1mm;
+        margin: 5mm 0 2.6mm;
+        break-after: avoid;
       }
-      .section-label::after { background: #ccc !important; }
+      .section-label::after { display: none !important; }
 
-      /* Experience timeline — strip dots/rails, tighten */
-      .timeline { gap: 0.7rem; }
-      .tl-item { padding-left: 0; break-inside: avoid; }
+      /* ── Experience: date rail + content ── */
+      .timeline { display: flex; flex-direction: column; gap: 3.4mm; }
+      .tl-item {
+        display: grid;
+        grid-template-columns: 29mm 1fr;
+        column-gap: 6mm;
+        row-gap: 0;
+        padding-left: 0;
+        break-inside: avoid;
+      }
       .tl-item::before, .tl-item::after { display: none !important; }
-      .tl-company { color: #111 !important; font-size: 11pt; }
-      .tl-company a { color: #111 !important; }
-      .tl-badge { color: #444 !important; background: none !important; border-color: #999 !important; font-size: 7pt; }
-      .tl-role { color: #333 !important; font-size: 9.5pt; }
-      .tl-period { color: #666 !important; font-size: 8pt; }
-      .tl-desc { color: #222 !important; font-size: 9.5pt; }
-      .tl-bullets li { color: #333 !important; font-size: 9pt; }
-      .tl-bullets li::before { color: #666 !important; }
-
-      /* Education */
-      .edu-grid { gap: 0.5rem; }
-      .edu-item { break-inside: avoid; }
-      .edu-school { color: #111 !important; }
-      .edu-degree { color: #333 !important; }
-      .edu-period { color: #666 !important; }
-
-      /* Skills → inline wrapped list */
-      .skills-grid { display: block; }
-      .skill-tag {
-        display: inline; background: none !important; border: none !important;
-        padding: 0; color: #222 !important; font-size: 9pt;
+      .tl-period {
+        grid-column: 1;
+        grid-row: 1 / span 4;
+        text-align: right;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.6pt;
+        line-height: 1.35;
+        color: #67707e !important;
+        margin: 0;
+        padding-top: 0.6mm;
       }
-      .skill-tag:not(:last-child)::after { content: ' · '; color: #999; }
+      .tl-company {
+        grid-column: 2; grid-row: 1;
+        display: flex; align-items: baseline; flex-wrap: wrap; gap: 2mm;
+        font-size: 10.4pt; font-weight: 600;
+        color: #10141b !important;
+      }
+      .tl-company a { color: #10141b !important; }
+      .tl-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.6pt;
+        color: #15607a !important;
+        background: none !important;
+        border: 0.5pt solid #b6c0cc !important;
+        border-radius: 2pt;
+        padding: 0.2mm 1.3mm;
+      }
+      .tl-role {
+        grid-column: 2; grid-row: 2;
+        font-size: 8.9pt; font-weight: 500;
+        color: #15607a !important;
+      }
+      .tl-desc {
+        grid-column: 2; grid-row: 3;
+        font-size: 8.8pt;
+        color: #333a44 !important;
+        margin-top: 0.6mm;
+      }
+      .tl-bullets {
+        grid-column: 2; grid-row: 4;
+        margin-top: 1mm;
+        padding-left: 3.4mm;
+        gap: 0;
+      }
+      .tl-bullets li {
+        font-size: 8.5pt;
+        line-height: 1.4;
+        color: #3d4450 !important;
+      }
+      .tl-bullets li::before {
+        content: '–';
+        left: -3.4mm;
+        color: #9aa3b0 !important;
+      }
 
-      /* Homelab — compact */
-      .homelab-card { background: none !important; border: none !important; padding: 0; break-inside: avoid; }
-      .hl-header { margin-bottom: 0.3rem; }
-      .hl-title { color: #111 !important; }
-      .hl-subtitle { color: #555 !important; }
-      .hl-badge { color: #444 !important; background: none !important; border-color: #999 !important; }
-      .hl-desc { color: #222 !important; font-size: 9pt; border-top-color: #ccc !important; padding-top: 0.4rem; margin-bottom: 0.4rem; }
-      .hl-chip { background: none !important; border: none !important; padding: 0; color: #333 !important; font-size: 8.5pt; }
-      .hl-chip:not(:last-child)::after { content: ' · '; color: #999; }
+      /* ── Education: same rail ── */
+      .edu-grid { display: flex; flex-direction: column; gap: 2.4mm; }
+      .edu-item {
+        display: grid;
+        grid-template-columns: 29mm 1fr;
+        column-gap: 6mm;
+        break-inside: avoid;
+      }
+      .edu-period {
+        grid-column: 1; grid-row: 1 / span 2;
+        text-align: right;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.6pt;
+        color: #67707e !important;
+        padding-top: 0.4mm;
+      }
+      .edu-school {
+        grid-column: 2; grid-row: 1;
+        font-size: 9.8pt; font-weight: 600;
+        color: #10141b !important;
+      }
+      .edu-degree {
+        grid-column: 2; grid-row: 2;
+        font-size: 8.7pt;
+        color: #333a44 !important;
+        margin: 0;
+      }
 
-      /* Certifications — compact */
-      .cert-list { gap: 0.3rem; }
-      .cert-item { background: none !important; border: none !important; padding: 0.1rem 0; break-inside: avoid; }
-      .cert-icon { display: none; }
-      .cert-name { color: #111 !important; font-size: 9.5pt; }
-      .cert-issuer { color: #555 !important; font-size: 8pt; }
+      /* ── Skills: tidy columns ── */
+      .skills-grid { display: block; columns: 4; column-gap: 7mm; }
+      .skill-tag {
+        display: block;
+        background: none !important;
+        border: none !important;
+        border-radius: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 8.4pt;
+        line-height: 1.55;
+        color: #2f353f !important;
+        break-inside: avoid;
+      }
 
+      /* ── Homelab + Side projects ── */
+      .homelab-card {
+        background: none !important;
+        border: none !important;
+        border-radius: 0;
+        padding: 0;
+        break-inside: avoid;
+      }
+      .hl-header { align-items: baseline; margin-bottom: 1.4mm; gap: 4mm; }
+      .hl-title { font-size: 10pt; font-weight: 600; color: #10141b !important; }
+      .hl-title a { color: #10141b !important; }
+      .hl-subtitle {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.4pt;
+        color: #67707e !important;
+        margin-top: 0.3mm;
+      }
+      .hl-badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 6.6pt;
+        color: #15607a !important;
+        background: none !important;
+        border: 0.5pt solid #b6c0cc !important;
+        border-radius: 2pt;
+        padding: 0.2mm 1.3mm;
+      }
+      .hl-desc {
+        font-size: 8.7pt;
+        color: #333a44 !important;
+        border-top: 0.6pt solid #e0e4ea !important;
+        padding-top: 1.4mm;
+        margin-bottom: 1.4mm;
+        line-height: 1.45;
+      }
+      .hl-stack-grid { display: block; }
+      .hl-chip {
+        display: inline;
+        background: none !important;
+        border: none !important;
+        border-radius: 0;
+        padding: 0;
+        font-size: 7.8pt;
+        color: #5b6472 !important;
+      }
+      .hl-chip:not(:last-child)::after { content: ' · '; color: #aeb6c2; }
+
+      /* ── Certifications: two columns ── */
+      .cert-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8mm 8mm; }
+      .cert-item {
+        display: block;
+        background: none !important;
+        border: none !important;
+        border-radius: 0;
+        padding: 0;
+        break-inside: avoid;
+      }
+      .cert-icon { display: none !important; }
+      .cert-name { font-size: 8.8pt; font-weight: 600; color: #10141b !important; }
+      .cert-issuer {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.3pt;
+        color: #67707e !important;
+      }
+
+      /* ── GDPR consent ── */
       .cv-consent {
         display: block;
-        margin-top: 1rem;
-        padding-top: 0.4rem;
-        border-top: 1px solid #ccc;
-        font-size: 7.5pt;
-        color: #666;
+        margin-top: 6mm;
+        padding-top: 1.6mm;
+        border-top: 0.6pt solid #dfe3ea;
+        font-size: 6.8pt;
         font-style: italic;
+        line-height: 1.4;
+        color: #6b7280;
       }
-
-      a { text-decoration: none !important; }
     }
   </style>
 </head>
@@ -703,6 +873,7 @@
       <a href="#education" data-i18n="nav_education"></a>
       <a href="#skills"   data-i18n="nav_skills"></a>
       <a href="#homelab"  data-i18n="nav_homelab"></a>
+      <a href="#projects" data-i18n="nav_projects"></a>
       <a href="#certs"    data-i18n="nav_certs"></a>
       <a href="#contact"  data-i18n="nav_contact"></a>
     </nav>
@@ -728,7 +899,7 @@
       <h1 class="hero-name">Kirelos (Kiro) <br>Namroud<span class="cursor"></span></h1>
       <div class="cv-print-header">
         <div class="cv-print-role" data-i18n="role"></div>
-        <div class="cv-print-contact">namroudkirelos04@proton.me · github.com/knamroud · linkedin.com/in/knamroud · credly.com/users/kirelos-namroud</div>
+        <div class="cv-print-contact">namroudkirelos04@proton.me · github.com/knamroud · linkedin.com/in/knamroud · credly.com/users/kirelos-namroud · Greater Milan Metropolitan Area</div>
       </div>
       <p class="hero-tagline" data-i18n="hero_tagline"></p>
       <div class="hero-location">⌖ Greater Milan Metropolitan Area</div>
@@ -844,6 +1015,22 @@
       </div>
     </section>
 
+    <!-- Side projects -->
+    <section id="projects">
+      <div class="section-label" data-i18n="nav_projects"></div>
+      <div class="homelab-card">
+        <div class="hl-header">
+          <div>
+            <div class="hl-title"><a href="https://github.com/knamroud/tg-lovers-bot" target="_blank" rel="noopener">tg-lovers-bot</a></div>
+            <div class="hl-subtitle" data-i18n="proj_subtitle"></div>
+          </div>
+          <div class="hl-badge">Open Source</div>
+        </div>
+        <p class="hl-desc" data-i18n="proj_desc"></p>
+        <div class="hl-stack-grid" id="proj-stack"></div>
+      </div>
+    </section>
+
 
     <section id="certs">
       <div class="section-label" data-i18n="nav_certs"></div>
@@ -952,6 +1139,9 @@ const i18n = {
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
     hl_desc:        'Self-hosted su ZimaBoard 2: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
+    nav_projects:   'Progetti',
+    proj_subtitle:  'Python · cifratura a riposo · Podman',
+    proj_desc:      'Bot Telegram self-hosted per coppie, progettato attorno alla privacy: database e note vocali cifrati a riposo (SQLCipher/Fernet), protezione dei contenuti Telegram contro inoltro e salvataggio, nessuna dipendenza cloud o terze parti. Include diario condiviso a rivelazione simultanea, tracking dell\'umore con trend a 7 giorni, promemoria automatici e sei giochi per due. Funziona in long-polling (nessun webhook pubblico), containerizzato con Podman e localizzato IT/EN.',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -1002,6 +1192,9 @@ const i18n = {
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
     hl_desc:        'Self-hosted on a ZimaBoard 2: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
+    nav_projects:   'Side Projects',
+    proj_subtitle:  'Python · encryption at rest · Podman',
+    proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
   }
 };
 
@@ -1021,6 +1214,11 @@ const hlStack = [
   'NUT', 'Uptime Kuma', 'Gotify', 'systemd Quadlet',
 ];
 
+const projStack = [
+  'Python', 'Telegram Bot API', 'SQLCipher', 'Fernet',
+  'SQLite', 'Podman', 'Docker', 'Long-polling', 'i18n IT/EN',
+];
+
 // ── Render skills ──
 const grid = document.getElementById('skills-grid');
 skills.forEach(s => {
@@ -1037,6 +1235,15 @@ hlStack.forEach(s => {
   el.className = 'hl-chip';
   el.textContent = s;
   hlGrid.appendChild(el);
+});
+
+// ── Render side-project stack ──
+const projGrid = document.getElementById('proj-stack');
+projStack.forEach(s => {
+  const el = document.createElement('div');
+  el.className = 'hl-chip';
+  el.textContent = s;
+  projGrid.appendChild(el);
 });
 
 // ── Lang switch ──
