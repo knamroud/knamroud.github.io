@@ -388,6 +388,12 @@
     }
 
     /* ── Homelab ── */
+    .homelab-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
     .homelab-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -436,6 +442,29 @@
       margin-bottom: 1.4rem;
       border-top: 1px solid var(--border);
       padding-top: 1rem;
+    }
+
+    .hl-bullets {
+      margin: -0.8rem 0 1.4rem;
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .hl-bullets li {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      list-style: none;
+      position: relative;
+    }
+
+    .hl-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: -0.9rem;
+      color: var(--accent);
     }
 
     .hl-stack-grid {
@@ -847,6 +876,22 @@
         margin-bottom: 1.4mm;
         line-height: 1.45;
       }
+      .homelab-grid { gap: 3.5mm; }
+      .hl-bullets {
+        margin: -0.6mm 0 1.4mm;
+        padding-left: 3.4mm;
+        gap: 0;
+      }
+      .hl-bullets li {
+        font-size: 8.5pt;
+        line-height: 1.4;
+        color: #3d4450 !important;
+      }
+      .hl-bullets li::before {
+        content: '–';
+        left: -3.4mm;
+        color: #9aa3b0 !important;
+      }
       .hl-stack-grid { display: block; }
       .hl-chip {
         display: inline;
@@ -1041,16 +1086,37 @@
     <!-- Homelab -->
     <section id="homelab">
       <div class="section-label" data-i18n="nav_homelab"></div>
-      <div class="homelab-card">
-        <div class="hl-header">
-          <div>
-            <div class="hl-title" data-i18n="hl_title"></div>
-            <div class="hl-subtitle" data-i18n="hl_subtitle"></div>
+      <div class="homelab-grid">
+
+        <div class="homelab-card">
+          <div class="hl-header">
+            <div>
+              <div class="hl-title" data-i18n="hl_title"></div>
+              <div class="hl-subtitle" data-i18n="hl_subtitle"></div>
+            </div>
+            <div class="hl-badge">ZimaBoard 2</div>
           </div>
-          <div class="hl-badge">ZimaBoard 2</div>
+          <p class="hl-desc" data-i18n="hl_desc"></p>
+          <div class="hl-stack-grid" id="hl-stack"></div>
         </div>
-        <p class="hl-desc" data-i18n="hl_desc"></p>
-        <div class="hl-stack-grid" id="hl-stack"></div>
+
+        <div class="homelab-card">
+          <div class="hl-header">
+            <div>
+              <div class="hl-title" data-i18n="ai_title"></div>
+              <div class="hl-subtitle" data-i18n="ai_subtitle"></div>
+            </div>
+            <div class="hl-badge">EVO-X2</div>
+          </div>
+          <p class="hl-desc" data-i18n="ai_desc"></p>
+          <ul class="hl-bullets">
+            <li data-i18n="ai_b1"></li>
+            <li data-i18n="ai_b2"></li>
+            <li data-i18n="ai_b3"></li>
+          </ul>
+          <div class="hl-stack-grid" id="ai-stack"></div>
+        </div>
+
       </div>
     </section>
 
@@ -1185,6 +1251,12 @@ const i18n = {
     nav_projects:   'Progetti',
     proj_subtitle:  'Python · cifratura a riposo · Podman',
     proj_desc:      'Bot Telegram self-hosted per coppie, progettato attorno alla privacy: database e note vocali cifrati a riposo (SQLCipher/Fernet), protezione dei contenuti Telegram contro inoltro e salvataggio, nessuna dipendenza cloud o terze parti. Include diario condiviso a rivelazione simultanea, tracking dell\'umore con trend a 7 giorni, promemoria automatici e sei giochi per due. Funziona in long-polling (nessun webhook pubblico), containerizzato con Podman e localizzato IT/EN.',
+    ai_title:       'Nodo AI & Inferenza Locale',
+    ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB LPDDR5X unificata',
+    ai_desc:        'Secondo nodo del homelab dedicato ai carichi AI: mini-workstation con APU Strix Halo e 128 GB di memoria unificata, usata come ambiente di sviluppo agentico e per fine-tuning/inferenza di modelli in locale.',
+    ai_b1:          'Stack per Claude Code self-hosted collegato all\'API Anthropic: sessioni di sviluppo agentico persistenti eseguite sul nodo invece che sulla macchina client',
+    ai_b2:          'Accesso da remoto a Claude Code e a Unsloth Studio tramite tunnel WireGuard terminato sulla ZimaBoard 2, che fa da gateway VPN e accende il nodo on-demand via Wake-on-LAN: nessuna porta esposta su internet e nessun consumo a vuoto',
+    ai_b3:          'Unsloth Studio configurato per sfruttare l\'APU e i 128 GB di memoria unificata per fine-tuning e inferenza di LLM senza GPU discreta',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -1238,6 +1310,12 @@ const i18n = {
     nav_projects:   'Side Projects',
     proj_subtitle:  'Python · encryption at rest · Podman',
     proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
+    ai_title:       'AI & Local Inference Node',
+    ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB unified LPDDR5X',
+    ai_desc:        'Second homelab node dedicated to AI workloads: a mini workstation with a Strix Halo APU and 128 GB of unified memory, used as an agentic development environment and for local model fine-tuning and inference.',
+    ai_b1:          'Self-hosted Claude Code stack wired to the Anthropic API: persistent agentic dev sessions running on the node instead of the client machine',
+    ai_b2:          'Remote access to both Claude Code and Unsloth Studio over a WireGuard tunnel terminated on the ZimaBoard 2, which acts as VPN gateway and powers the node on-demand via Wake-on-LAN — no ports exposed to the internet and no idle power draw',
+    ai_b3:          'Unsloth Studio tuned to leverage the APU and its 128 GB of unified memory for LLM fine-tuning and inference without a discrete GPU',
   }
 };
 
@@ -1247,6 +1325,7 @@ const skills = [
   'PHP', 'Laravel', 'BeautifulSoup4',
   'Docker', 'Podman', 'Ansible', 'CI/CD',
   'Linux', 'openSUSE', 'Restic',
+  'Networking', 'WireGuard', 'VPN',
   'Git', 'REST APIs', 'HTML/CSS',
   'JavaScript', 'Bash', 'SQL',
 ];
@@ -1262,6 +1341,12 @@ const projStack = [
   'SQLite', 'Podman', 'Docker', 'CI/CD', 'Long-polling', 'i18n IT/EN',
 ];
 
+const aiStack = [
+  'GMKtec EVO-X2', 'Ryzen AI Max+ 395', '128 GB unified LPDDR5X',
+  'Unsloth Studio', 'Claude Code', 'Anthropic API',
+  'WireGuard', 'Wake-on-LAN', 'Networking',
+];
+
 // ── Render skills ──
 const grid = document.getElementById('skills-grid');
 skills.forEach(s => {
@@ -1271,14 +1356,19 @@ skills.forEach(s => {
   grid.appendChild(el);
 });
 
-// ── Render homelab stack ──
-const hlGrid = document.getElementById('hl-stack');
-hlStack.forEach(s => {
-  const el = document.createElement('div');
-  el.className = 'hl-chip';
-  el.textContent = s;
-  hlGrid.appendChild(el);
-});
+// ── Render homelab stacks ──
+function renderStack(containerId, items) {
+  const container = document.getElementById(containerId);
+  items.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'hl-chip';
+    el.textContent = s;
+    container.appendChild(el);
+  });
+}
+
+renderStack('hl-stack', hlStack);
+renderStack('ai-stack', aiStack);
 
 // ── Render side-project stack ──
 const projGrid = document.getElementById('proj-stack');
