@@ -972,7 +972,6 @@
       <a href="#experience" data-i18n="nav_experience"></a>
       <a href="#education" data-i18n="nav_education"></a>
       <a href="#skills"   data-i18n="nav_skills"></a>
-      <a href="#homelab"  data-i18n="nav_homelab"></a>
       <a href="#projects" data-i18n="nav_projects"></a>
       <a href="#certs"    data-i18n="nav_certs"></a>
       <a href="#contact"  data-i18n="nav_contact"></a>
@@ -1118,9 +1117,9 @@
       <div class="skills-grid" id="skills-grid"></div>
     </section>
 
-    <!-- Homelab -->
-    <section id="homelab">
-      <div class="section-label" data-i18n="nav_homelab"></div>
+    <!-- Homelab + Side projects -->
+    <section id="projects">
+      <div class="section-label" data-i18n="nav_projects"></div>
       <div class="homelab-grid">
 
         <div class="homelab-card">
@@ -1152,22 +1151,18 @@
           <div class="hl-stack-grid" id="ai-stack"></div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- Side projects -->
-    <section id="projects">
-      <div class="section-label" data-i18n="nav_projects"></div>
-      <div class="homelab-card">
-        <div class="hl-header">
-          <div>
-            <div class="hl-title"><a href="https://github.com/knamroud/tg-lovers-bot" target="_blank" rel="noopener">tg-lovers-bot</a></div>
-            <div class="hl-subtitle" data-i18n="proj_subtitle"></div>
+        <div class="homelab-card">
+          <div class="hl-header">
+            <div>
+              <div class="hl-title"><a href="https://github.com/knamroud/tg-lovers-bot" target="_blank" rel="noopener">tg-lovers-bot</a></div>
+              <div class="hl-subtitle" data-i18n="proj_subtitle"></div>
+            </div>
+            <div class="hl-badge">Open Source</div>
           </div>
-          <div class="hl-badge">Open Source</div>
+          <p class="hl-desc" data-i18n="proj_desc"></p>
+          <div class="hl-stack-grid" id="proj-stack"></div>
         </div>
-        <p class="hl-desc" data-i18n="proj_desc"></p>
-        <div class="hl-stack-grid" id="proj-stack"></div>
+
       </div>
     </section>
 
@@ -1285,7 +1280,6 @@ const i18n = {
     coursera_period:'dic 2022',
     footer:         'fatto con ♥ e troppo caffè · knamroud',
     cv_consent:     'Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae ai sensi dell\'art. 13 del D.Lgs. 196/2003 e dell\'art. 13 del Regolamento UE 2016/679 (GDPR).',
-    nav_homelab:    'Homelab',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
     hl_desc:        'Self-hosted su ZimaBoard 2: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
@@ -1350,11 +1344,10 @@ const i18n = {
     coursera_period:'Dec 2022',
     footer:         'built with ♥ and too much coffee · knamroud',
     cv_consent:     'I authorise the processing of my personal data contained in this CV pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU Regulation 2016/679 (GDPR).',
-    nav_homelab:    'Homelab',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
     hl_desc:        'Self-hosted on a ZimaBoard 2: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
-    nav_projects:   'Side Projects',
+    nav_projects:   'Projects',
     proj_subtitle:  'Python · encryption at rest · Podman',
     proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
     ai_title:       'AI & Local Inference Node',
