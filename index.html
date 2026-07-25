@@ -340,6 +340,48 @@
       color: var(--accent);
     }
 
+    /* projects nested inside a role */
+    .tl-projects {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .tl-projects-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .tl-project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.9rem 1.1rem;
+    }
+
+    .tl-project-name {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-hi);
+    }
+
+    .tl-project-name a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .tl-project-name a:hover { color: var(--accent); }
+
     /* ── Education ── */
     .edu-grid { display: flex; flex-direction: column; gap: 1.8rem; }
 
@@ -798,6 +840,35 @@
         left: -3.4mm;
         color: #9aa3b0 !important;
       }
+      /* nested projects: sit in the content column, no card chrome.
+         Their .tl-period/.tl-desc/.tl-bullets are not grid items here, so the
+         grid placement above is inert — only the visual rules need undoing. */
+      .tl-projects {
+        grid-column: 2; grid-row: 5;
+        margin-top: 1.6mm;
+        gap: 1.8mm;
+      }
+      .tl-projects-label {
+        font-size: 6.8pt;
+        letter-spacing: 0.1em;
+        color: #77808e !important;
+      }
+      .tl-project {
+        background: none !important;
+        border: none !important;
+        border-left: 0.6pt solid #dfe3ea !important;
+        border-radius: 0;
+        padding: 0 0 0 3.2mm;
+        break-inside: avoid;
+      }
+      .tl-project-name { font-size: 9.4pt; color: #10141b !important; }
+      .tl-project-name a { color: #10141b !important; }
+      .tl-project .tl-period {
+        text-align: left;
+        padding-top: 0;
+        margin-bottom: 0.4mm;
+      }
+      .tl-project .tl-desc { margin-top: 0.4mm; }
 
       /* ── Education: same rail ── */
       .edu-grid { display: flex; flex-direction: column; gap: 2.4mm; }
@@ -994,19 +1065,32 @@
       <div class="timeline">
 
         <div class="tl-item">
-          <div class="tl-company">
-            <a href="https://kestrel-markets.com" target="_blank" rel="noopener">Kestrel Markets</a>
-            <span class="tl-badge" data-i18n="kestrel_badge"></span>
-          </div>
-          <div class="tl-role" data-i18n="kestrel_role"></div>
-          <div class="tl-period" data-i18n="kestrel_period"></div>
-          <div class="tl-desc" data-i18n="kestrel_desc"></div>
+          <div class="tl-company">Sviluppo Software di Namroud Kirelos</div>
+          <div class="tl-role" data-i18n="free_role"></div>
+          <div class="tl-period" data-i18n="free_period"></div>
+          <div class="tl-desc" data-i18n="free_desc"></div>
           <ul class="tl-bullets">
-            <li data-i18n="kestrel_b1"></li>
-            <li data-i18n="kestrel_b2"></li>
-            <li data-i18n="kestrel_b3"></li>
-            <li data-i18n="kestrel_b4"></li>
+            <li data-i18n="free_b1"></li>
+            <li data-i18n="free_b2"></li>
           </ul>
+          <div class="tl-projects">
+            <div class="tl-projects-label" data-i18n="free_proj_label"></div>
+            <div class="tl-project">
+              <div class="tl-project-name">
+                <a href="https://kestrel-markets.com" target="_blank" rel="noopener">Kestrel Markets</a>
+                <span class="tl-badge" data-i18n="kestrel_badge"></span>
+              </div>
+              <div class="tl-role" data-i18n="kestrel_role"></div>
+              <div class="tl-period" data-i18n="kestrel_period"></div>
+              <div class="tl-desc" data-i18n="kestrel_desc"></div>
+              <ul class="tl-bullets">
+                <li data-i18n="kestrel_b1"></li>
+                <li data-i18n="kestrel_b2"></li>
+                <li data-i18n="kestrel_b3"></li>
+                <li data-i18n="kestrel_b4"></li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div class="tl-item">
@@ -1210,6 +1294,12 @@ const i18n = {
     cv_cta:         'Scarica una copia del mio CV in PDF, generato dal vivo da questo sito.',
     hero_eyebrow:   'DISPONIBILE PER OPPORTUNITÀ',
     hero_tagline:   'Sviluppatore Full Stack con esperienza backend in Python e Django, appassionato di infrastrutture self-hosted e automazione DevOps. Studente di Informatica in UniMI.',
+    free_role:      'Software Engineer · Libero professionista',
+    free_period:    'lug 2026 – presente · Da remoto',
+    free_desc:      'Attività di sviluppo software come libero professionista. Si accettano commissioni.',
+    free_b1:        'Progettazione e sviluppo full-stack su commissione: backend Python/Django, single page application e integrazioni AI',
+    free_b2:        'Infrastruttura e deploy: container Docker/Podman, provisioning Ansible, AWS, hardening Linux, reti e sicurezza informatica',
+    free_proj_label:'Progetti dell\'attività',
     kestrel_badge:  'IN ARRIVO',
     kestrel_role:   'Founder & Full-Stack Developer',
     kestrel_period: 'mag 2026 – presente · Remoto',
@@ -1269,6 +1359,12 @@ const i18n = {
     cv_cta:         'Download a PDF copy of my CV, generated live from this site.',
     hero_eyebrow:   'OPEN TO OPPORTUNITIES',
     hero_tagline:   'Full Stack Developer with backend experience in Python and Django, passionate about self-hosted infrastructure and DevOps automation. Computer Science student at UniMI.',
+    free_role:      'Software Engineer · Self-employed',
+    free_period:    'Jul 2026 – present · Remote',
+    free_desc:      'Freelance software development practice. Open to commissions.',
+    free_b1:        'Full-stack design and development on commission: Python/Django backends, single page applications, and AI integrations',
+    free_b2:        'Infrastructure and deployment: Docker/Podman containers, Ansible provisioning, AWS, Linux hardening, networking and security',
+    free_proj_label:'Projects under this activity',
     kestrel_badge:  'COMING SOON',
     kestrel_role:   'Founder & Full-Stack Developer',
     kestrel_period: 'May 2026 – present · Remote',
