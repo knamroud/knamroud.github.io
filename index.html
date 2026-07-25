@@ -57,7 +57,6 @@
       flex-direction: column;
       padding: 3rem 1.5rem 2rem;
       border-right: 1px solid var(--border);
-      gap: 0;
     }
 
     .sidebar-name {
@@ -132,7 +131,6 @@
 
     .lang-toggle {
       display: flex;
-      gap: 0;
       border: 1px solid var(--border);
       border-radius: 4px;
       overflow: hidden;
@@ -266,7 +264,7 @@
 
     .timeline .tl-item:last-child::after { display: none; }
 
-    .tl-company {
+    .tl-company, .tl-project-name {
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -277,13 +275,15 @@
       color: var(--text-hi);
     }
 
-    .tl-company a {
+    /* inline links in a heading keep the heading colour until hovered —
+       shared with .hl-title (homelab and side-project cards) */
+    .tl-company a, .tl-project-name a, .hl-title a {
       color: inherit;
       text-decoration: none;
       transition: color 0.15s;
     }
 
-    .tl-company a:hover {
+    .tl-company a:hover, .tl-project-name a:hover, .hl-title a:hover {
       color: var(--accent);
     }
 
@@ -363,29 +363,10 @@
       padding: 0.9rem 1.1rem;
     }
 
-    .tl-project-name {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-hi);
-    }
-
-    .tl-project-name a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .tl-project-name a:hover { color: var(--accent); }
+    .tl-project-name { font-size: 0.92rem; }
 
     /* ── Education ── */
     .edu-grid { display: flex; flex-direction: column; gap: 1.8rem; }
-
-    .edu-item {}
 
     .edu-school {
       font-family: 'Space Grotesk', sans-serif;
@@ -565,14 +546,6 @@
       font-size: 0.68rem;
       color: var(--text-dim);
     }
-
-    .hl-title a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .hl-title a:hover { color: var(--accent); }
 
     /* ── CV download ── */
     .cv-cta {
@@ -803,8 +776,8 @@
         font-size: 10.4pt; font-weight: 600;
         color: #10141b !important;
       }
-      .tl-company a { color: #10141b !important; }
-      .tl-badge {
+      /* shared by the experience, homelab and side-project blocks */
+      .tl-badge, .hl-badge {
         font-family: 'JetBrains Mono', monospace;
         font-size: 6.6pt;
         color: #15607a !important;
@@ -830,12 +803,12 @@
         padding-left: 3.4mm;
         gap: 0;
       }
-      .tl-bullets li {
+      .tl-bullets li, .hl-bullets li {
         font-size: 8.5pt;
         line-height: 1.4;
         color: #3d4450 !important;
       }
-      .tl-bullets li::before {
+      .tl-bullets li::before, .hl-bullets li::before {
         content: '–';
         left: -3.4mm;
         color: #9aa3b0 !important;
@@ -862,7 +835,6 @@
         break-inside: avoid;
       }
       .tl-project-name { font-size: 9.4pt; color: #10141b !important; }
-      .tl-project-name a { color: #10141b !important; }
       .tl-project .tl-period {
         text-align: left;
         padding-top: 0;
@@ -923,21 +895,11 @@
       }
       .hl-header { align-items: baseline; margin-bottom: 1.4mm; gap: 4mm; }
       .hl-title { font-size: 10pt; font-weight: 600; color: #10141b !important; }
-      .hl-title a { color: #10141b !important; }
       .hl-subtitle {
         font-family: 'JetBrains Mono', monospace;
         font-size: 7.4pt;
         color: #67707e !important;
         margin-top: 0.3mm;
-      }
-      .hl-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 6.6pt;
-        color: #15607a !important;
-        background: none !important;
-        border: 0.5pt solid #b6c0cc !important;
-        border-radius: 2pt;
-        padding: 0.2mm 1.3mm;
       }
       .hl-desc {
         font-size: 8.7pt;
@@ -952,16 +914,6 @@
         margin: -0.6mm 0 1.4mm;
         padding-left: 3.4mm;
         gap: 0;
-      }
-      .hl-bullets li {
-        font-size: 8.5pt;
-        line-height: 1.4;
-        color: #3d4450 !important;
-      }
-      .hl-bullets li::before {
-        content: '–';
-        left: -3.4mm;
-        color: #9aa3b0 !important;
       }
       .hl-stack-grid { display: block; }
       .hl-chip {
@@ -1015,7 +967,7 @@
     <div class="sidebar-name">Kirelos (Kiro) Namroud</div>
     <div class="sidebar-role" data-i18n="role"></div>
 
-    <nav id="sidebar-nav">
+    <nav>
       <a href="#about"    data-i18n="nav_about"></a>
       <a href="#experience" data-i18n="nav_experience"></a>
       <a href="#education" data-i18n="nav_education"></a>
@@ -1442,43 +1394,24 @@ const aiStack = [
   'WireGuard', 'Wake-on-LAN', 'Networking',
 ];
 
-// ── Render skills ──
-const grid = document.getElementById('skills-grid');
-skills.forEach(s => {
-  const el = document.createElement('div');
-  el.className = 'skill-tag';
-  el.textContent = s;
-  grid.appendChild(el);
-});
-
-// ── Render homelab stacks ──
-function renderStack(containerId, items) {
+// ── Render tag lists ──
+function renderTags(containerId, items, className) {
   const container = document.getElementById(containerId);
   items.forEach(s => {
     const el = document.createElement('div');
-    el.className = 'hl-chip';
+    el.className = className;
     el.textContent = s;
     container.appendChild(el);
   });
 }
 
-renderStack('hl-stack', hlStack);
-renderStack('ai-stack', aiStack);
-
-// ── Render side-project stack ──
-const projGrid = document.getElementById('proj-stack');
-projStack.forEach(s => {
-  const el = document.createElement('div');
-  el.className = 'hl-chip';
-  el.textContent = s;
-  projGrid.appendChild(el);
-});
+renderTags('skills-grid', skills, 'skill-tag');
+renderTags('hl-stack',   hlStack,   'hl-chip');
+renderTags('ai-stack',   aiStack,   'hl-chip');
+renderTags('proj-stack', projStack, 'hl-chip');
 
 // ── Lang switch ──
-let currentLang = 'it';
-
 function setLang(lang) {
-  currentLang = lang;
   const dict = i18n[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
