@@ -1157,6 +1157,7 @@
             <li data-i18n="ai_b1"></li>
             <li data-i18n="ai_b2"></li>
             <li data-i18n="ai_b3"></li>
+            <li data-i18n="ai_b4"></li>
           </ul>
           <div class="hl-stack-grid" id="ai-stack"></div>
         </div>
@@ -1297,16 +1298,17 @@ const i18n = {
     cv_consent:     'Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae ai sensi dell\'art. 13 del D.Lgs. 196/2003 e dell\'art. 13 del Regolamento UE 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
-    hl_desc:        'Self-hosted su ZimaBoard 2: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
+    hl_desc:        'Self-hosted su ZimaBoard 2, che fa anche da nodo control plane (server) del cluster k3s: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
     nav_projects:   'Progetti',
     proj_subtitle:  'Python · cifratura a riposo · Podman',
     proj_desc:      'Bot Telegram self-hosted per coppie, progettato attorno alla privacy: database e note vocali cifrati a riposo (SQLCipher/Fernet), protezione dei contenuti Telegram contro inoltro e salvataggio, nessuna dipendenza cloud o terze parti. Include diario condiviso a rivelazione simultanea, tracking dell\'umore con trend a 7 giorni, promemoria automatici e sei giochi per due. Funziona in long-polling (nessun webhook pubblico), containerizzato con Podman e localizzato IT/EN.',
     ai_title:       'Nodo AI & Inferenza Locale',
     ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB LPDDR5X unificata',
-    ai_desc:        'Secondo nodo del homelab dedicato ai carichi AI: mini-workstation con APU Strix Halo e 128 GB di memoria unificata, usata come ambiente di sviluppo agentico e per fine-tuning/inferenza di modelli in locale.',
+    ai_desc:        'Secondo nodo del homelab, dedicato ai carichi AI e unito come nodo worker (agent) al cluster k3s con control plane sulla ZimaBoard 2: mini-workstation con APU Strix Halo e 128 GB di memoria unificata, usata come ambiente di sviluppo agentico e per fine-tuning/inferenza di modelli in locale.',
     ai_b1:          'Stack per Claude Code self-hosted collegato all\'API Anthropic: sessioni di sviluppo agentico persistenti eseguite sul nodo invece che sulla macchina client',
     ai_b2:          'Accesso da remoto a Claude Code e a Unsloth Studio tramite tunnel WireGuard terminato sulla ZimaBoard 2, che fa da gateway VPN e accende il nodo on-demand via Wake-on-LAN: nessuna porta esposta su internet e nessun consumo a vuoto',
     ai_b3:          'Unsloth Studio configurato per sfruttare l\'APU e i 128 GB di memoria unificata per fine-tuning e inferenza di LLM senza GPU discreta',
+    ai_b4:          'Configurazione del nodo gestita con Ansible (IaC): playbook eseguito dalla ZimaBoard 2 in modalità push',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -1366,16 +1368,17 @@ const i18n = {
     cv_consent:     'I authorise the processing of my personal data contained in this CV pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU Regulation 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
     hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
-    hl_desc:        'Self-hosted on a ZimaBoard 2: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
+    hl_desc:        'Self-hosted on a ZimaBoard 2, which also serves as the control-plane (server) node of the k3s cluster: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
     nav_projects:   'Projects',
     proj_subtitle:  'Python · encryption at rest · Podman',
     proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
     ai_title:       'AI & Local Inference Node',
     ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB unified LPDDR5X',
-    ai_desc:        'Second homelab node dedicated to AI workloads: a mini workstation with a Strix Halo APU and 128 GB of unified memory, used as an agentic development environment and for local model fine-tuning and inference.',
+    ai_desc:        'Second homelab node, dedicated to AI workloads and joined as a worker (agent) node to the k3s cluster whose control plane runs on the ZimaBoard 2: a mini workstation with a Strix Halo APU and 128 GB of unified memory, used as an agentic development environment and for local model fine-tuning and inference.',
     ai_b1:          'Self-hosted Claude Code stack wired to the Anthropic API: persistent agentic dev sessions running on the node instead of the client machine',
     ai_b2:          'Remote access to both Claude Code and Unsloth Studio over a WireGuard tunnel terminated on the ZimaBoard 2, which acts as VPN gateway and powers the node on-demand via Wake-on-LAN — no ports exposed to the internet and no idle power draw',
     ai_b3:          'Unsloth Studio tuned to leverage the APU and its 128 GB of unified memory for LLM fine-tuning and inference without a discrete GPU',
+    ai_b4:          'Node configuration managed with Ansible (IaC): playbook run from the ZimaBoard 2 in push mode',
   }
 };
 
@@ -1383,7 +1386,7 @@ const skills = [
   'Python', 'Django', 'DRF', 'Vue.js', 'SPA',
   'PostgreSQL', 'AWS EC2', 'Claude API', 'Stripe',
   'PHP', 'Laravel', 'BeautifulSoup4',
-  'Docker', 'Podman', 'Ansible', 'CI/CD',
+  'Docker', 'Podman', 'k3s', 'Ansible', 'CI/CD',
   'Linux', 'openSUSE', 'Restic',
   'Networking', 'WireGuard', 'VPN',
   'Git', 'REST APIs', 'HTML/CSS',
@@ -1391,7 +1394,7 @@ const skills = [
 ];
 
 const hlStack = [
-  'ZimaBoard 2', 'openSUSE MicroOS', 'Podman (rootless)',
+  'ZimaBoard 2', 'openSUSE MicroOS', 'k3s (server)', 'Podman (rootless)',
   'Ansible', 'RAID 1', 'Restic', 'Backrest',
   'NUT', 'Uptime Kuma', 'Gotify', 'systemd Quadlet',
 ];
@@ -1403,7 +1406,7 @@ const projStack = [
 
 const aiStack = [
   'GMKtec EVO-X2', 'Ryzen AI Max+ 395', '128 GB unified LPDDR5X',
-  'Unsloth Studio', 'Claude Code', 'Anthropic API',
+  'k3s (agent)', 'Ansible', 'Unsloth Studio', 'Claude Code', 'Anthropic API',
   'WireGuard', 'Wake-on-LAN', 'Networking',
 ];
 
