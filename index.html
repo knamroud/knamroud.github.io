@@ -348,7 +348,7 @@
       gap: 0.8rem;
     }
 
-    .tl-projects-label {
+    .tl-projects-label, .hl-stack-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.12em;
@@ -511,6 +511,53 @@
       color: var(--accent);
       border-color: var(--accent);
     }
+
+    /* devices nested inside the homelab card */
+    .hl-devices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hl-device {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.9rem 1.1rem;
+    }
+
+    .hl-device-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.2rem 1rem;
+    }
+
+    .hl-device-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-hi);
+    }
+
+    .hl-device-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent);
+    }
+
+    .hl-device-spec {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--text-dim);
+      margin: 0.15rem 0 0.7rem;
+    }
+
+    .hl-device .hl-bullets { margin: 0; }
+
+    .hl-stack-label { margin-bottom: 0.6rem; }
 
     /* ── Certifications ── */
     .cert-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -821,7 +868,7 @@
         margin-top: 1.6mm;
         gap: 1.8mm;
       }
-      .tl-projects-label {
+      .tl-projects-label, .hl-stack-label {
         font-size: 6.8pt;
         letter-spacing: 0.1em;
         color: #77808e !important;
@@ -926,6 +973,21 @@
         color: #5b6472 !important;
       }
       .hl-chip:not(:last-child)::after { content: ' · '; color: #aeb6c2; }
+      /* the merged homelab card is long: let it split between devices */
+      .hl-cluster { break-inside: auto; }
+      .hl-devices { gap: 1.8mm; margin-bottom: 1.6mm; }
+      .hl-device {
+        background: none !important;
+        border: none !important;
+        border-left: 0.6pt solid #dfe3ea !important;
+        border-radius: 0;
+        padding: 0 0 0 3.2mm;
+        break-inside: avoid;
+      }
+      .hl-device-name { font-size: 9.2pt; color: #10141b !important; }
+      .hl-device-role { font-size: 7.2pt; color: #15607a !important; }
+      .hl-device-spec { font-size: 7.4pt; color: #67707e !important; margin: 0.2mm 0 0.8mm; }
+      .hl-stack-label { margin-bottom: 0.8mm; }
 
       /* ── Certifications: two columns ── */
       .cert-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8mm 8mm; }
@@ -1132,34 +1194,50 @@
       <div class="section-label" data-i18n="nav_projects"></div>
       <div class="homelab-grid">
 
-        <div class="homelab-card">
+        <div class="homelab-card hl-cluster">
           <div class="hl-header">
             <div>
               <div class="hl-title" data-i18n="hl_title"></div>
               <div class="hl-subtitle" data-i18n="hl_subtitle"></div>
             </div>
-            <div class="hl-badge">ZimaBoard 2</div>
+            <div class="hl-badge">Homelab</div>
           </div>
           <p class="hl-desc" data-i18n="hl_desc"></p>
-          <div class="hl-stack-grid" id="hl-stack"></div>
-        </div>
 
-        <div class="homelab-card">
-          <div class="hl-header">
-            <div>
-              <div class="hl-title" data-i18n="ai_title"></div>
-              <div class="hl-subtitle" data-i18n="ai_subtitle"></div>
+          <div class="hl-devices">
+            <div class="hl-device">
+              <div class="hl-device-head">
+                <div class="hl-device-name">ZimaBoard 2</div>
+                <div class="hl-device-role" data-i18n="hl_zima_role"></div>
+              </div>
+              <div class="hl-device-spec" data-i18n="hl_zima_spec"></div>
+              <ul class="hl-bullets">
+                <li data-i18n="hl_zima_b1"></li>
+                <li data-i18n="hl_zima_b2"></li>
+                <li data-i18n="hl_zima_b3"></li>
+                <li data-i18n="hl_zima_b4"></li>
+                <li data-i18n="hl_zima_b5"></li>
+              </ul>
             </div>
-            <div class="hl-badge">EVO-X2</div>
+
+            <div class="hl-device">
+              <div class="hl-device-head">
+                <div class="hl-device-name">GMKtec EVO-X2</div>
+                <div class="hl-device-role" data-i18n="hl_evo_role"></div>
+              </div>
+              <div class="hl-device-spec" data-i18n="hl_evo_spec"></div>
+              <ul class="hl-bullets">
+                <li data-i18n="hl_evo_b1"></li>
+                <li data-i18n="hl_evo_b2"></li>
+                <li data-i18n="hl_evo_b3"></li>
+                <li data-i18n="hl_evo_b4"></li>
+                <li data-i18n="hl_evo_b5"></li>
+              </ul>
+            </div>
           </div>
-          <p class="hl-desc" data-i18n="ai_desc"></p>
-          <ul class="hl-bullets">
-            <li data-i18n="ai_b1"></li>
-            <li data-i18n="ai_b2"></li>
-            <li data-i18n="ai_b3"></li>
-            <li data-i18n="ai_b4"></li>
-          </ul>
-          <div class="hl-stack-grid" id="ai-stack"></div>
+
+          <div class="hl-stack-label" data-i18n="hl_stack_label"></div>
+          <div class="hl-stack-grid" id="hl-stack"></div>
         </div>
 
         <div class="homelab-card">
@@ -1297,18 +1375,26 @@ const i18n = {
     footer:         'fatto con ♥ e troppo caffè · knamroud',
     cv_consent:     'Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae ai sensi dell\'art. 13 del D.Lgs. 196/2003 e dell\'art. 13 del Regolamento UE 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
-    hl_subtitle:    'openSUSE MicroOS · Podman rootless · RAID 1',
-    hl_desc:        'Self-hosted su ZimaBoard 2, che fa anche da nodo control plane (server) del cluster k3s: gestione servizi con container Podman rootless orchestrati tramite Ansible (IaC), storage ridondante RAID 1, backup 3-2-1 via Restic/Backrest. UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify.',
+    hl_subtitle:    'Cluster k3s a 2 nodi · Ansible (IaC) · WireGuard',
+    hl_desc:        'Homelab self-hosted su due nodi riuniti in un cluster k3s: la ZimaBoard 2 fa da control plane e gestisce rete, dati e backup, l\'EVO-X2 esegue i carichi AI. La configurazione di entrambi i nodi è gestita come codice con Ansible.',
+    hl_zima_role:   'control plane · gateway VPN · storage',
+    hl_zima_spec:   'openSUSE MicroOS · Podman rootless · RAID 1',
+    hl_zima_b1:     'Nodo control plane (server) del cluster k3s',
+    hl_zima_b2:     'Servizi in container Podman rootless orchestrati tramite Ansible (IaC)',
+    hl_zima_b3:     'Gateway VPN: termina il tunnel WireGuard per l\'accesso remoto e accende l\'EVO-X2 on-demand via Wake-on-LAN',
+    hl_zima_b4:     'Storage ridondante RAID 1 e backup 3-2-1 via Restic/Backrest',
+    hl_zima_b5:     'UPS management con NUT, monitoring con Uptime Kuma e notifiche push via Gotify',
+    hl_evo_role:    'worker k3s · AI e inferenza locale',
+    hl_evo_spec:    'AMD Ryzen AI Max+ 395 · 128 GB LPDDR5X unificata',
+    hl_evo_b1:      'Nodo worker (agent) del cluster k3s: mini-workstation con APU Strix Halo dedicata allo sviluppo agentico e a fine-tuning/inferenza di modelli in locale',
+    hl_evo_b2:      'Configurazione gestita con Ansible (IaC): playbook eseguito dalla ZimaBoard 2 in modalità push',
+    hl_evo_b3:      'Stack per Claude Code self-hosted collegato all\'API Anthropic: sessioni di sviluppo agentico persistenti eseguite sul nodo invece che sulla macchina client',
+    hl_evo_b4:      'Unsloth Studio configurato per sfruttare l\'APU e i 128 GB di memoria unificata per fine-tuning e inferenza di LLM senza GPU discreta',
+    hl_evo_b5:      'Claude Code e Unsloth Studio raggiungibili da remoto solo tramite il tunnel WireGuard: nessuna porta esposta su internet e nessun consumo a vuoto grazie all\'accensione on-demand',
+    hl_stack_label: 'Competenze',
     nav_projects:   'Progetti',
     proj_subtitle:  'Python · cifratura a riposo · Podman',
     proj_desc:      'Bot Telegram self-hosted per coppie, progettato attorno alla privacy: database e note vocali cifrati a riposo (SQLCipher/Fernet), protezione dei contenuti Telegram contro inoltro e salvataggio, nessuna dipendenza cloud o terze parti. Include diario condiviso a rivelazione simultanea, tracking dell\'umore con trend a 7 giorni, promemoria automatici e sei giochi per due. Funziona in long-polling (nessun webhook pubblico), containerizzato con Podman e localizzato IT/EN.',
-    ai_title:       'Nodo AI & Inferenza Locale',
-    ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB LPDDR5X unificata',
-    ai_desc:        'Secondo nodo del homelab, dedicato ai carichi AI e unito come nodo worker (agent) al cluster k3s con control plane sulla ZimaBoard 2: mini-workstation con APU Strix Halo e 128 GB di memoria unificata, usata come ambiente di sviluppo agentico e per fine-tuning/inferenza di modelli in locale.',
-    ai_b1:          'Stack per Claude Code self-hosted collegato all\'API Anthropic: sessioni di sviluppo agentico persistenti eseguite sul nodo invece che sulla macchina client',
-    ai_b2:          'Accesso da remoto a Claude Code e a Unsloth Studio tramite tunnel WireGuard terminato sulla ZimaBoard 2, che fa da gateway VPN e accende il nodo on-demand via Wake-on-LAN: nessuna porta esposta su internet e nessun consumo a vuoto',
-    ai_b3:          'Unsloth Studio configurato per sfruttare l\'APU e i 128 GB di memoria unificata per fine-tuning e inferenza di LLM senza GPU discreta',
-    ai_b4:          'Configurazione del nodo gestita con Ansible (IaC): playbook eseguito dalla ZimaBoard 2 in modalità push',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -1367,18 +1453,26 @@ const i18n = {
     footer:         'built with ♥ and too much coffee · knamroud',
     cv_consent:     'I authorise the processing of my personal data contained in this CV pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU Regulation 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
-    hl_subtitle:    'openSUSE MicroOS · rootless Podman · RAID 1',
-    hl_desc:        'Self-hosted on a ZimaBoard 2, which also serves as the control-plane (server) node of the k3s cluster: services managed with rootless Podman containers orchestrated via Ansible (IaC), redundant RAID 1 storage, 3-2-1 backup strategy with Restic/Backrest. UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify.',
+    hl_subtitle:    '2-node k3s cluster · Ansible (IaC) · WireGuard',
+    hl_desc:        'Self-hosted homelab on two nodes joined in a k3s cluster: the ZimaBoard 2 runs the control plane and handles networking, data and backups, while the EVO-X2 runs AI workloads. Both nodes are configured as code with Ansible.',
+    hl_zima_role:   'control plane · VPN gateway · storage',
+    hl_zima_spec:   'openSUSE MicroOS · rootless Podman · RAID 1',
+    hl_zima_b1:     'Control-plane (server) node of the k3s cluster',
+    hl_zima_b2:     'Services run as rootless Podman containers orchestrated via Ansible (IaC)',
+    hl_zima_b3:     'VPN gateway: terminates the WireGuard tunnel for remote access and powers the EVO-X2 on-demand via Wake-on-LAN',
+    hl_zima_b4:     'Redundant RAID 1 storage and 3-2-1 backup strategy with Restic/Backrest',
+    hl_zima_b5:     'UPS management via NUT, uptime monitoring with Uptime Kuma, push notifications via Gotify',
+    hl_evo_role:    'k3s worker · AI & local inference',
+    hl_evo_spec:    'AMD Ryzen AI Max+ 395 · 128 GB unified LPDDR5X',
+    hl_evo_b1:      'Worker (agent) node of the k3s cluster: a mini workstation with a Strix Halo APU dedicated to agentic development and local model fine-tuning and inference',
+    hl_evo_b2:      'Configuration managed with Ansible (IaC): playbook run from the ZimaBoard 2 in push mode',
+    hl_evo_b3:      'Self-hosted Claude Code stack wired to the Anthropic API: persistent agentic dev sessions running on the node instead of the client machine',
+    hl_evo_b4:      'Unsloth Studio tuned to leverage the APU and its 128 GB of unified memory for LLM fine-tuning and inference without a discrete GPU',
+    hl_evo_b5:      'Claude Code and Unsloth Studio reachable remotely only through the WireGuard tunnel — no ports exposed to the internet and no idle power draw thanks to on-demand power-on',
+    hl_stack_label: 'Skills',
     nav_projects:   'Projects',
     proj_subtitle:  'Python · encryption at rest · Podman',
     proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
-    ai_title:       'AI & Local Inference Node',
-    ai_subtitle:    'GMKtec EVO-X2 · AMD Ryzen AI Max+ 395 · 128 GB unified LPDDR5X',
-    ai_desc:        'Second homelab node, dedicated to AI workloads and joined as a worker (agent) node to the k3s cluster whose control plane runs on the ZimaBoard 2: a mini workstation with a Strix Halo APU and 128 GB of unified memory, used as an agentic development environment and for local model fine-tuning and inference.',
-    ai_b1:          'Self-hosted Claude Code stack wired to the Anthropic API: persistent agentic dev sessions running on the node instead of the client machine',
-    ai_b2:          'Remote access to both Claude Code and Unsloth Studio over a WireGuard tunnel terminated on the ZimaBoard 2, which acts as VPN gateway and powers the node on-demand via Wake-on-LAN — no ports exposed to the internet and no idle power draw',
-    ai_b3:          'Unsloth Studio tuned to leverage the APU and its 128 GB of unified memory for LLM fine-tuning and inference without a discrete GPU',
-    ai_b4:          'Node configuration managed with Ansible (IaC): playbook run from the ZimaBoard 2 in push mode',
   }
 };
 
@@ -1394,9 +1488,10 @@ const skills = [
 ];
 
 const hlStack = [
-  'ZimaBoard 2', 'openSUSE MicroOS', 'k3s (server)', 'Podman (rootless)',
-  'Ansible', 'RAID 1', 'Restic', 'Backrest',
-  'NUT', 'Uptime Kuma', 'Gotify', 'systemd Quadlet',
+  'k3s', 'Ansible', 'openSUSE MicroOS', 'Podman (rootless)', 'systemd Quadlet',
+  'WireGuard', 'Wake-on-LAN', 'Networking',
+  'RAID 1', 'Restic', 'Backrest', 'NUT', 'Uptime Kuma', 'Gotify',
+  'Unsloth Studio', 'Claude Code', 'Anthropic API',
 ];
 
 const projStack = [
@@ -1404,11 +1499,6 @@ const projStack = [
   'SQLite', 'Podman', 'Docker', 'CI/CD', 'Long-polling', 'i18n IT/EN',
 ];
 
-const aiStack = [
-  'GMKtec EVO-X2', 'Ryzen AI Max+ 395', '128 GB unified LPDDR5X',
-  'k3s (agent)', 'Ansible', 'Unsloth Studio', 'Claude Code', 'Anthropic API',
-  'WireGuard', 'Wake-on-LAN', 'Networking',
-];
 
 // ── Render tag lists ──
 function renderTags(containerId, items, className) {
@@ -1423,7 +1513,6 @@ function renderTags(containerId, items, className) {
 
 renderTags('skills-grid', skills, 'skill-tag');
 renderTags('hl-stack',   hlStack,   'hl-chip');
-renderTags('ai-stack',   aiStack,   'hl-chip');
 renderTags('proj-stack', projStack, 'hl-chip');
 
 // ── Lang switch ──
