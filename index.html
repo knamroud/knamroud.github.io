@@ -1234,6 +1234,20 @@
                 <li data-i18n="hl_evo_b5"></li>
               </ul>
             </div>
+
+            <div class="hl-device">
+              <div class="hl-device-head">
+                <div class="hl-device-name">Raspberry Pi 3B</div>
+                <div class="hl-device-role" data-i18n="hl_pi_role"></div>
+              </div>
+              <div class="hl-device-spec" data-i18n="hl_pi_spec"></div>
+              <ul class="hl-bullets">
+                <li data-i18n="hl_pi_b1"></li>
+                <li data-i18n="hl_pi_b2"></li>
+                <li data-i18n="hl_pi_b3"></li>
+                <li data-i18n="hl_pi_b4"></li>
+              </ul>
+            </div>
           </div>
 
           <div class="hl-stack-label" data-i18n="hl_stack_label"></div>
@@ -1375,8 +1389,8 @@ const i18n = {
     footer:         'fatto con ♥ e troppo caffè · knamroud',
     cv_consent:     'Autorizzo il trattamento dei miei dati personali presenti nel curriculum vitae ai sensi dell\'art. 13 del D.Lgs. 196/2003 e dell\'art. 13 del Regolamento UE 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
-    hl_subtitle:    'Cluster k3s a 2 nodi · Ansible (IaC) · WireGuard',
-    hl_desc:        'Homelab self-hosted su due nodi riuniti in un cluster k3s: la ZimaBoard 2 fa da control plane e gestisce rete, dati e backup, l\'EVO-X2 esegue i carichi AI. La configurazione di entrambi i nodi è gestita come codice con Ansible.',
+    hl_subtitle:    'Cluster k3s a 3 nodi · Ansible (IaC) · WireGuard',
+    hl_desc:        'Homelab self-hosted su tre nodi riuniti in un cluster k3s: la ZimaBoard 2 fa da control plane e gestisce rete, dati e backup, l\'EVO-X2 esegue i carichi AI e un Raspberry Pi 3B replica i servizi critici come nodo di ridondanza e accesso di emergenza. La configurazione di tutti i nodi è gestita come codice con Ansible.',
     hl_zima_role:   'control plane · gateway VPN · storage',
     hl_zima_spec:   'openSUSE MicroOS · Podman rootless · RAID 1',
     hl_zima_b1:     'Nodo control plane (server) del cluster k3s',
@@ -1391,6 +1405,12 @@ const i18n = {
     hl_evo_b3:      'Stack per Claude Code self-hosted collegato all\'API Anthropic: sessioni di sviluppo agentico persistenti eseguite sul nodo invece che sulla macchina client',
     hl_evo_b4:      'Unsloth Studio configurato per sfruttare l\'APU e i 128 GB di memoria unificata per fine-tuning e inferenza di LLM senza GPU discreta',
     hl_evo_b5:      'Claude Code e Unsloth Studio raggiungibili da remoto solo tramite il tunnel WireGuard: nessuna porta esposta su internet e nessun consumo a vuoto grazie all\'accensione on-demand',
+    hl_pi_role:     'worker k3s · ridondanza servizi · accesso di emergenza',
+    hl_pi_spec:     'Raspberry Pi OS Lite (ARM64) · always-on a basso consumo',
+    hl_pi_b1:       'Terzo nodo del cluster k3s: sempre acceso e a bassissimo consumo, pronto a subentrare se un nodo principale non risponde',
+    hl_pi_b2:       'Ridondanza dei servizi di rete: DNS e VPN replicati sul Pi per eliminare i single point of failure',
+    hl_pi_b3:       'Replica dei servizi fondamentali (Caddy, Vaultwarden): reverse proxy e password manager restano disponibili anche fuori dal nodo principale',
+    hl_pi_b4:       'Accesso esterno di emergenza: endpoint WireGuard indipendente e jump host SSH raggiungibili anche con la ZimaBoard fuori uso',
     hl_stack_label: 'Competenze',
     nav_projects:   'Progetti',
     proj_subtitle:  'Python · cifratura a riposo · Podman',
@@ -1453,8 +1473,8 @@ const i18n = {
     footer:         'built with ♥ and too much coffee · knamroud',
     cv_consent:     'I authorise the processing of my personal data contained in this CV pursuant to Italian Legislative Decree 196/2003 and Article 13 of EU Regulation 2016/679 (GDPR).',
     hl_title:       'Home Cloud Infrastructure',
-    hl_subtitle:    '2-node k3s cluster · Ansible (IaC) · WireGuard',
-    hl_desc:        'Self-hosted homelab on two nodes joined in a k3s cluster: the ZimaBoard 2 runs the control plane and handles networking, data and backups, while the EVO-X2 runs AI workloads. Both nodes are configured as code with Ansible.',
+    hl_subtitle:    '3-node k3s cluster · Ansible (IaC) · WireGuard',
+    hl_desc:        'Self-hosted homelab on three nodes joined in a k3s cluster: the ZimaBoard 2 runs the control plane and handles networking, data and backups, the EVO-X2 runs AI workloads, and a Raspberry Pi 3B replicates critical services as a redundancy and emergency-access node. All nodes are configured as code with Ansible.',
     hl_zima_role:   'control plane · VPN gateway · storage',
     hl_zima_spec:   'openSUSE MicroOS · rootless Podman · RAID 1',
     hl_zima_b1:     'Control-plane (server) node of the k3s cluster',
@@ -1469,6 +1489,12 @@ const i18n = {
     hl_evo_b3:      'Self-hosted Claude Code stack wired to the Anthropic API: persistent agentic dev sessions running on the node instead of the client machine',
     hl_evo_b4:      'Unsloth Studio tuned to leverage the APU and its 128 GB of unified memory for LLM fine-tuning and inference without a discrete GPU',
     hl_evo_b5:      'Claude Code and Unsloth Studio reachable remotely only through the WireGuard tunnel — no ports exposed to the internet and no idle power draw thanks to on-demand power-on',
+    hl_pi_role:     'k3s worker · service redundancy · emergency access',
+    hl_pi_spec:     'Raspberry Pi OS Lite (ARM64) · always-on, low power',
+    hl_pi_b1:       'Third node of the k3s cluster: always on at minimal power draw, ready to take over if a main node goes down',
+    hl_pi_b2:       'Network-service redundancy: DNS and VPN replicated on the Pi to remove single points of failure',
+    hl_pi_b3:       'Replica of essential services (Caddy, Vaultwarden): the reverse proxy and password manager stay available outside the main node',
+    hl_pi_b4:       'Emergency external access: an independent WireGuard endpoint and SSH jump host, reachable even when the ZimaBoard is down',
     hl_stack_label: 'Skills',
     nav_projects:   'Projects',
     proj_subtitle:  'Python · encryption at rest · Podman',
@@ -1491,6 +1517,7 @@ const hlStack = [
   'k3s', 'Ansible', 'openSUSE MicroOS', 'Podman (rootless)', 'systemd Quadlet',
   'WireGuard', 'Wake-on-LAN', 'Networking',
   'RAID 1', 'Restic', 'Backrest', 'NUT', 'Uptime Kuma', 'Gotify',
+  'Caddy', 'Vaultwarden', 'Raspberry Pi OS',
   'Unsloth Studio', 'Claude Code', 'Anthropic API',
 ];
 
