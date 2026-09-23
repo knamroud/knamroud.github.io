@@ -1254,18 +1254,6 @@
           <div class="hl-stack-grid" id="hl-stack"></div>
         </div>
 
-        <div class="homelab-card">
-          <div class="hl-header">
-            <div>
-              <div class="hl-title"><a href="https://github.com/knamroud/tg-lovers-bot" target="_blank" rel="noopener">tg-lovers-bot</a></div>
-              <div class="hl-subtitle" data-i18n="proj_subtitle"></div>
-            </div>
-            <div class="hl-badge">Open Source</div>
-          </div>
-          <p class="hl-desc" data-i18n="proj_desc"></p>
-          <div class="hl-stack-grid" id="proj-stack"></div>
-        </div>
-
       </div>
     </section>
 
@@ -1413,8 +1401,6 @@ const i18n = {
     hl_pi_b4:       'Accesso esterno di emergenza: endpoint WireGuard indipendente e jump host SSH raggiungibili anche con la ZimaBoard fuori uso',
     hl_stack_label: 'Competenze',
     nav_projects:   'Progetti',
-    proj_subtitle:  'Python · cifratura a riposo · Podman',
-    proj_desc:      'Bot Telegram self-hosted per coppie, progettato attorno alla privacy: database e note vocali cifrati a riposo (SQLCipher/Fernet), protezione dei contenuti Telegram contro inoltro e salvataggio, nessuna dipendenza cloud o terze parti. Include diario condiviso a rivelazione simultanea, tracking dell\'umore con trend a 7 giorni, promemoria automatici e sei giochi per due. Funziona in long-polling (nessun webhook pubblico), containerizzato con Podman e localizzato IT/EN.',
   },
   en: {
     role:           'full stack dev · cs student',
@@ -1497,8 +1483,6 @@ const i18n = {
     hl_pi_b4:       'Emergency external access: an independent WireGuard endpoint and SSH jump host, reachable even when the ZimaBoard is down',
     hl_stack_label: 'Skills',
     nav_projects:   'Projects',
-    proj_subtitle:  'Python · encryption at rest · Podman',
-    proj_desc:      'Self-hosted Telegram bot for couples, built around privacy: database and voice notes encrypted at rest (SQLCipher/Fernet), Telegram content protection against forwarding and saving, no cloud dependencies or third parties. Features a shared diary with simultaneous reveal, mood tracking with 7-day trends, automated reminders, and six two-player games. Runs on long-polling (no public webhook), containerised with Podman and localised IT/EN.',
   }
 };
 
@@ -1521,12 +1505,6 @@ const hlStack = [
   'Unsloth Studio', 'Claude Code', 'Anthropic API',
 ];
 
-const projStack = [
-  'Python', 'Telegram Bot API', 'SQLCipher', 'Fernet',
-  'SQLite', 'Podman', 'Docker', 'CI/CD', 'Long-polling', 'i18n IT/EN',
-];
-
-
 // ── Render tag lists ──
 function renderTags(containerId, items, className) {
   const container = document.getElementById(containerId);
@@ -1540,7 +1518,6 @@ function renderTags(containerId, items, className) {
 
 renderTags('skills-grid', skills, 'skill-tag');
 renderTags('hl-stack',   hlStack,   'hl-chip');
-renderTags('proj-stack', projStack, 'hl-chip');
 
 // ── Lang switch ──
 function setLang(lang) {
